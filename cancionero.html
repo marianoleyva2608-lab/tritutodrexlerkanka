@@ -1,0 +1,954 @@
+<title>Cancionero Drexler & Kanka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#efe4cd;
+  --paper:#f7efdd;
+  --ink:#2b2114;
+  --ink-soft:#5a4c38;
+  --line:#cbb896;
+  --line-soft:#ddcda6;
+  --drexler:#a8501f;
+  --drexler-soft:#f0dcc9;
+  --kanka:#2c6a63;
+  --kanka-soft:#d9e7e2;
+  --duo:#6a4d8c;
+  --duo-soft:#e6dced;
+  --full:#3f6b3a;
+  --full-soft:#dde8d6;
+  --partial:#a1791f;
+  --partial-soft:#f1e4c4;
+  --link:#a1791f;
+  --shadow: 0 1px 2px rgba(43,33,20,.08), 0 6px 20px -8px rgba(43,33,20,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#211a10;
+    --paper:#2a2116;
+    --ink:#efe3ca;
+    --ink-soft:#c4b393;
+    --line:#4c3e28;
+    --line-soft:#3a2f1e;
+    --drexler:#e08a55;
+    --drexler-soft:#3e2c1c;
+    --kanka:#6bbdb3;
+    --kanka-soft:#1f3634;
+    --duo:#b79bd9;
+    --duo-soft:#332944;
+    --full:#8fc084;
+    --full-soft:#243322;
+    --partial:#e0b95c;
+    --partial-soft:#3a2f16;
+    --link:#e0b95c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px -8px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#211a10;
+  --paper:#2a2116;
+  --ink:#efe3ca;
+  --ink-soft:#c4b393;
+  --line:#4c3e28;
+  --line-soft:#3a2f1e;
+  --drexler:#e08a55;
+  --drexler-soft:#3e2c1c;
+  --kanka:#6bbdb3;
+  --kanka-soft:#1f3634;
+  --duo:#b79bd9;
+  --duo-soft:#332944;
+  --full:#8fc084;
+  --full-soft:#243322;
+  --partial:#e0b95c;
+  --partial-soft:#3a2f16;
+  --link:#e0b95c;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px -8px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Public Sans', system-ui, sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--link);}
+.wrap{
+  max-width:840px;
+  margin:0 auto;
+  padding:2.75rem 1.25rem 6rem;
+}
+
+/* ---------- Header ---------- */
+header.page{
+  margin-bottom:2.5rem;
+}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:.9rem;
+}
+.eyebrow .dash{width:2rem;height:1px;background:var(--line);display:inline-block;}
+h1{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:clamp(2.1rem, 5vw, 3rem);
+  line-height:1.05;
+  margin:0 0 .5rem;
+  text-wrap:balance;
+}
+h1 em{
+  font-style:italic;
+  font-weight:500;
+  color:var(--drexler);
+}
+.sub{
+  font-size:1rem;
+  color:var(--ink-soft);
+  max-width:52ch;
+  line-height:1.5;
+  margin:0 0 1.5rem;
+}
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.6rem;
+  font-size:.78rem;
+}
+.legend .chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.28rem .6rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  background:var(--paper);
+}
+.legend .dot{width:.55rem;height:.55rem;border-radius:99px;flex:none;}
+
+/* ---------- Table of contents ---------- */
+.toc{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin-bottom:3rem;
+}
+.set-block + .set-block{border-top:1px dashed var(--line-soft);}
+.set-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.9rem 1.25rem .5rem;
+}
+.set-head h2{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:1.05rem;
+  margin:0;
+  color:var(--ink);
+}
+.set-head .count{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.7rem;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.song-row{
+  display:grid;
+  grid-template-columns:2.1rem 1fr auto auto;
+  align-items:center;
+  gap:.75rem;
+  padding:.55rem 1.25rem;
+  text-decoration:none;
+  color:var(--ink);
+  border-top:1px solid var(--line-soft);
+}
+.set-head + .song-row{border-top:none;}
+.song-row:hover{background:var(--line-soft);}
+.song-row .n{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem;
+  color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;
+}
+.song-row .t{
+  font-size:.98rem;
+  font-weight:500;
+}
+.artist-chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.65rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  padding:.18rem .5rem;
+  border-radius:6px;
+  white-space:nowrap;
+}
+.artist-chip.drexler{background:var(--drexler-soft);color:var(--drexler);}
+.artist-chip.kanka{background:var(--kanka-soft);color:var(--kanka);}
+.artist-chip.duo{background:var(--duo-soft);color:var(--duo);}
+.status-dot{width:.5rem;height:.5rem;border-radius:99px;justify-self:end;}
+.status-dot.full{background:var(--full);}
+.status-dot.partial{background:var(--partial);}
+.status-dot.none{background:var(--line);}
+
+/* ---------- Song sheets ---------- */
+.sheets h2.section-title{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:1.3rem;
+  margin:2.6rem 0 1rem;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+}
+.sheets h2.section-title:first-child{margin-top:0;}
+details.song{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:.85rem;
+  box-shadow:var(--shadow);
+  scroll-margin-top:1.5rem;
+}
+details.song[open]{
+  border-color:var(--drexler);
+}
+details.song summary{
+  list-style:none;
+  cursor:pointer;
+  padding:.9rem 1.15rem;
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  border-radius:12px;
+}
+details.song summary::-webkit-details-marker{display:none;}
+details.song summary .n{
+  font-family:'JetBrains Mono', monospace;
+  color:var(--ink-soft);
+  font-size:.85rem;
+  flex:none;
+  width:1.6rem;
+}
+details.song summary .title{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:1.15rem;
+  flex:1;
+}
+details.song summary .arrow{
+  flex:none;
+  color:var(--ink-soft);
+  transition:transform .15s ease;
+  font-size:.8rem;
+}
+details.song[open] summary .arrow{transform:rotate(90deg);}
+.song-body{
+  padding:0 1.15rem 1.25rem;
+  border-top:1px solid var(--line-soft);
+}
+.song-meta{
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+  padding:.85rem 0 .2rem;
+  font-size:.8rem;
+  color:var(--ink-soft);
+}
+.song-meta a{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.72rem;
+}
+.sheet{
+  overflow-x:auto;
+  background:var(--bg);
+  border:1px solid var(--line-soft);
+  border-radius:8px;
+  padding:1rem 1.15rem;
+  margin-top:.7rem;
+}
+:root{ --sheet-font-size: 15px; }
+.sheet pre{
+  margin:0;
+  font-family:'JetBrains Mono', monospace;
+  font-size:var(--sheet-font-size, 15px);
+  line-height:1.55;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.sheet .cd{color:var(--drexler); font-weight:600;}
+.sheet .lbl{color:var(--kanka); font-weight:600; letter-spacing:.03em;}
+.sheet .ly{color:var(--ink);}
+.no-data{
+  padding:.85rem 0 1rem;
+  font-size:.88rem;
+  color:var(--ink-soft);
+  font-style:italic;
+}
+
+footer.page{
+  margin-top:3rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--line);
+  font-size:.78rem;
+  color:var(--ink-soft);
+  line-height:1.6;
+}
+
+/* ---------- Speed control ---------- */
+.speed-control{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  flex-wrap:wrap;
+  margin-top:1.1rem;
+  font-size:.78rem;
+  color:var(--ink-soft);
+}
+.speed-control .label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.7rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.speed-adjust{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  border:1px solid var(--line);
+  border-radius:99px;
+  background:var(--paper);
+  padding:.25rem .3rem;
+}
+.speed-adjust button{
+  width:1.7rem;
+  height:1.7rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  background:var(--drexler);
+  color:var(--paper);
+  font-size:1rem;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+}
+.speed-adjust button:disabled{
+  background:var(--line);
+  color:var(--ink-soft);
+  cursor:not-allowed;
+}
+.speed-adjust button:hover:not(:disabled){filter:brightness(1.08);}
+.speed-label{
+  font-family:'Public Sans', sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--ink);
+  min-width:5.4rem;
+  text-align:center;
+}
+.speed-adjust.compact{
+  padding:.15rem .2rem;
+  gap:.4rem;
+}
+.speed-adjust.compact button{
+  width:1.4rem;
+  height:1.4rem;
+  font-size:.85rem;
+}
+.speed-adjust.compact .speed-label{
+  font-size:.72rem;
+  min-width:4.4rem;
+}
+.font-adjust{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  border:1px solid var(--line);
+  border-radius:99px;
+  background:var(--paper);
+  padding:.25rem .3rem;
+}
+.font-adjust button{
+  width:1.7rem;
+  height:1.7rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  background:var(--kanka);
+  color:var(--paper);
+  font-size:.85rem;
+  font-weight:700;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+}
+.font-adjust button:hover{filter:brightness(1.08);}
+.font-label{
+  font-family:'Public Sans', sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--ink);
+  min-width:2.6rem;
+  text-align:center;
+}
+.font-adjust.compact{
+  padding:.15rem .2rem;
+  gap:.3rem;
+}
+.font-adjust.compact button{
+  width:1.4rem;
+  height:1.4rem;
+  font-size:.75rem;
+}
+.font-adjust.compact .font-label{
+  font-size:.72rem;
+  min-width:2.2rem;
+}
+.speed-play{
+  width:1.7rem;
+  height:1.7rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  background:var(--kanka);
+  color:var(--paper);
+  font-size:.85rem;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+  margin-left:.35rem;
+}
+.speed-play:hover{filter:brightness(1.08);}
+.speed-play.playing{background:var(--drexler);}
+.speed-adjust.compact .font-adjust{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  border:1px solid var(--line);
+  border-radius:99px;
+  background:var(--paper);
+  padding:.25rem .3rem;
+}
+.font-adjust button{
+  width:1.7rem;
+  height:1.7rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  background:var(--kanka);
+  color:var(--paper);
+  font-size:.85rem;
+  font-weight:700;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+}
+.font-adjust button:hover{filter:brightness(1.08);}
+.font-label{
+  font-family:'Public Sans', sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--ink);
+  min-width:2.6rem;
+  text-align:center;
+}
+.font-adjust.compact{
+  padding:.15rem .2rem;
+  gap:.3rem;
+}
+.font-adjust.compact button{
+  width:1.4rem;
+  height:1.4rem;
+  font-size:.75rem;
+}
+.font-adjust.compact .font-label{
+  font-size:.72rem;
+  min-width:2.2rem;
+}
+.speed-play{
+  width:1.4rem;
+  height:1.4rem;
+  font-size:.7rem;
+  margin-left:.25rem;
+}
+.song-meta{
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.song-meta .speed-control-inline{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+}
+.song-meta .speed-control-inline .label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.62rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+
+/* ---------- Prev / next nav ---------- */
+.song-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:.75rem;
+  margin-top:1.1rem;
+  padding-top:.9rem;
+  border-top:1px dashed var(--line-soft);
+}
+.song-nav a{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+  text-decoration:none;
+  padding:.55rem .75rem;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:var(--ink);
+  font-size:.85rem;
+  min-width:0;
+}
+.song-nav a:hover{background:var(--line-soft);}
+.song-nav a.next{text-align:right;align-items:flex-end;}
+.song-nav a .dir{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.65rem;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.song-nav a .ttl{
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.song-nav .spacer{flex:1;}
+
+/* ---------- Back to top ---------- */
+#backtop{
+  position:fixed;
+  right:1.25rem;
+  bottom:1.25rem;
+  width:2.9rem;
+  height:2.9rem;
+  border-radius:99px;
+  border:1px solid var(--line);
+  background:var(--drexler);
+  color:var(--paper);
+  font-size:1.1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:20;
+}
+#backtop.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+
+@media (max-width:560px){
+  .song-row{grid-template-columns:1.6rem 1fr auto;}
+  .song-row .status-dot{display:none;}
+  .song-nav a .ttl{max-width:9rem;}
+}
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <div class="eyebrow"><span class="dash"></span> Cancionero privado</div>
+    <h1>Tributo a Jorge Drexler <em>&amp;</em> El Kanka</h1>
+    <p class="sub">Set list de 27 canciones con letra y acordes, en el orden en que las tocamos: apertura, bajadas de intimidad, subida y clímax final, con bis.</p>
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:var(--full)"></span> Letra y acordes completos</span>
+      <span class="chip"><span class="dot" style="background:var(--partial)"></span> Solo acordes / tono</span>
+      <span class="chip"><span class="dot" style="background:var(--line)"></span> Solo enlace</span>
+      <span class="chip"><span class="dot" style="background:var(--drexler)"></span> Drexler</span>
+      <span class="chip"><span class="dot" style="background:var(--kanka)"></span> El Kanka</span>
+    </div>
+    <div class="speed-control">
+      <span class="label">Velocidad al saltar de canción</span>
+      <div class="speed-adjust">
+        <button class="speed-minus" type="button" aria-label="Más lento">&minus;</button>
+        <span class="speed-label">Normal</span>
+        <button class="speed-plus" type="button" aria-label="Más rápido">+</button>
+        <button class="speed-play" type="button" aria-label="Desplazar hacia abajo">&#9654;</button>
+      </div>
+    </div>
+    <div class="speed-control">
+      <span class="label">Tamaño de letra</span>
+      <div class="font-adjust">
+        <button class="font-minus" type="button" aria-label="Letra más chica">A&minus;</button>
+        <span class="font-label">15px</span>
+        <button class="font-plus" type="button" aria-label="Letra más grande">A+</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" id="toc" aria-label="Set list"></nav>
+
+  <section class="sheets" id="sheets"></section>
+
+  <footer class="page">
+    Acordes y letras transcritos de lacuerda.net y Cifra Club, para uso privado del grupo — no para reproducción o uso comercial.
+    Página generada para consulta propia; pídeme que agregue, quite o reordene canciones cuando quieras.
+  </footer>
+</div>
+
+<button id="backtop" type="button" aria-label="Volver al índice" title="Volver al índice">&#8593;</button>
+
+<script type="application/json" id="song-data">
+{"sets": [{"id": "set1", "label": "1er set — Apertura potente"}, {"id": "set2", "label": "Bajada 1 — Intimidad"}, {"id": "set3", "label": "Subida media"}, {"id": "set4", "label": "Bajada 2 — Recogimiento"}, {"id": "set5", "label": "Recta final — Clímax"}, {"id": "set6", "label": "Bis"}], "songs": [{"num": 1, "title": "Deseo", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/deseo", "content": "<span class=\"lbl\">Riff guit en Am y Em</span>\n<span class=\"ly\">1/----------------</span>\n<span class=\"ly\">2/----------------</span>\n<span class=\"ly\">3/-----2-0---0-02-</span>\n<span class=\"ly\">4/----------------</span>\n<span class=\"ly\">5/0---0-----------</span>\n<span class=\"ly\">6/------0---0-0---</span>\n<span class=\"ly\">(intro):Am, Em... x4</span>\n<span class=\"cd\">Am Em Am Em Am</span>\n<span class=\"ly\">Yo soy tan solo, uno de los deo polos</span>\n<span class=\"cd\">Em Am Em</span>\n<span class=\"ly\">de esta historia la mitad.</span>\n<span class=\"cd\">Am Em Am Em Am</span>\n<span class=\"ly\">Apenas medio elenco estable,una de las dos variables</span>\n<span class=\"cd\">Em Am</span>\n<span class=\"ly\">en esta polaridad.</span>\n<span class=\"ly\">Mas y menos ,y en el otro extremo ,de esa linea estas tu.</span>\n<span class=\"cd\">G7 A7 Dm7 G</span>\n<span class=\"ly\">Mi tormento ,mi fabuloso complemento,mi fuente de salud.</span>\n<span class=\"lbl\">ESTRIBILLO</span>\n<span class=\"cd\">Dm7 G Dm7 G Dm7 G</span>\n<span class=\"ly\">Deseo, mire donde mire te veo, mire donde mire te veo,</span>\n<span class=\"cd\">Am Em</span>\n<span class=\"ly\">donde mire te veo,oh,oh,oh.</span>\n<span class=\"ly\">Am (silencio)</span>\n<span class=\"ly\">Igual que hace millones de siglosen un microscopico</span>\n<span class=\"ly\">mundo distante se unieron,dos celulas cualquiera.</span>\n<span class=\"cd\">Am Em Am Em G7 A7 Dm7 G</span>\n<span class=\"ly\">Instinto, dos seres distintos ,amandose por ves primera.</span>\n<span class=\"ly\">Deseo, mire donde mire te veo,mire donde mire te veo,</span>\n<span class=\"ly\">donde mire te veo,oh,oh,oh.</span>\n<span class=\"ly\">Dulce magnetismo ,dos cargas opuestas buscando lo mismo..BIS</span>\n<span class=\"ly\">Deseo,mire donde mire te veo,mire donde mire te veo,</span>\n<span class=\"ly\">donde mire te veo,oh,oh,oh.x6</span>\n<span class=\"ly\">******************************************************************</span>\n<span class=\"ly\">El riff de la guit se puede hacer durante toda</span>\n<span class=\"ly\">la cancion (excepto estribillo)</span>\n<span class=\"ly\">o usar los acordes puestos... Espero que les sirva</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 2, "title": "Sabéis quiénes sois", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/sabeis_quienes_sois.shtml", "content": "<span class=\"ly\">El Kanka knkx0471</span>\n<span class=\"lbl\">Enviado por carvelaya</span>\n<span class=\"ly\">desconocido [2020]</span>\n<span class=\"ly\">Cejilla en el 4º traste.</span>\n<span class=\"ly\">Doadd9: X32033</span>\n<span class=\"ly\">Lam11: 5X5530</span>\n<span class=\"ly\">Re9: X5453X</span>\n<span class=\"ly\">Resus2: XX0230</span>\n<span class=\"ly\">DO#dism7: X45350</span>\n<span class=\"ly\">Lam7b5: X01013</span>\n<span class=\"cd\">SOL</span>\n<span class=\"ly\">Amigos, compañeros, compadres y comadres,</span>\n<span class=\"cd\">DOadd9</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"ly\">colegas, camaradas, mis panas y carnales,</span>\n<span class=\"cd\">SOL</span>\n<span class=\"ly\">familia con o sin un vinculo de sangre,</span>\n<span class=\"cd\">DOadd9</span>\n<span class=\"ly\">mi clan, mi gente rara, mi estirpe de los bares:</span>\n<span class=\"cd\">LAm11 RE9</span>\n<span class=\"ly\">no sé qué es lo que haría sin vuestras majestades.</span>\n<span class=\"cd\">SOL</span>\n<span class=\"ly\">Andamos el camino mejor acompañados,</span>\n<span class=\"cd\">DOadd9</span>\n<span class=\"ly\">en los buenos momentos o en los momentos malos,</span>\n<span class=\"cd\">SOL</span>\n<span class=\"ly\">a veces el viaje se pone cuesta abajo,</span>\n<span class=\"cd\">DOadd9</span>\n<span class=\"ly\">es bueno dar con quien tragar los malos tragos</span>\n<span class=\"cd\">LAm11 RE9</span>\n<span class=\"ly\">y brindar con vosotros se vuelve necesario.</span>\n<span class=\"cd\">MIm REsus2 DOadd9 SOL</span>\n<span class=\"ly\">Gracias por el abrazo constante</span>\n<span class=\"cd\">MIm REsus2 DOadd9</span>\n<span class=\"ly\">y por aguantar mis disparates,</span>\n<span class=\"cd\">LAm7 REsus2</span>\n<span class=\"ly\">aunque nunca os diga lo que os quiero,</span>\n<span class=\"cd\">LAm7 REsus2</span>\n<span class=\"ly\">tengo tantas ganas ya de veros.</span>\n<span class=\"cd\">SOL</span>\n<span class=\"ly\">Quedamos en el muro, noche de borrachera,</span>\n<span class=\"cd\">DO</span>\n<span class=\"ly\">nos ponemos profundos, nos da la ventolera,</span>\n<span class=\"cd\">SOL DO#dim7</span>\n<span class=\"ly\">partiéndonos el culo, cantando carnavales,</span>\n<span class=\"ly\">LAm7 LAm7b5</span>\n<span class=\"ly\">arreglemos el mundo, que está para el arrastre.</span>\n<span class=\"cd\">SOL SOL7</span>\n<span class=\"ly\">Os dejo en testamento mis risas, mis errores</span>\n<span class=\"cd\">DO/SOL DOm</span>\n<span class=\"ly\">y la guitarra con la que inventamos callejones.</span>\n<span class=\"cd\">MIm LA7</span>\n<span class=\"ly\">Si os pasa lo que sea, remuevo tierra y aire,</span>\n<span class=\"cd\">LAm11 RE9</span>\n<span class=\"ly\">que nunca estaréis solos si está vuestro compadre.</span>\n<span class=\"cd\">MIm REsus2 DOadd9 SOL</span>\n<span class=\"ly\">Gracias por el abrazo constante</span>\n<span class=\"cd\">MIm REsus2 DOadd9</span>\n<span class=\"ly\">y por aguantar mis disparates,</span>\n<span class=\"cd\">LAm7 REsus2</span>\n<span class=\"ly\">aunque nunca os diga lo que os quiero,</span>\n<span class=\"cd\">LAm7 REsus2</span>\n<span class=\"ly\">tengo tantas ganas ya de veros.</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 3, "title": "Eco", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/eco-2.shtml", "content": "<span class=\"cd\">C Em7</span>\n<span class=\"ly\">Esto que estás oyendo ya no soy yo,</span>\n<span class=\"ly\">C E7/11</span>\n<span class=\"ly\">es el eco, del eco, del eco</span>\n<span class=\"cd\">Am Am/G</span>\n<span class=\"ly\">de un sentimiento;</span>\n<span class=\"ly\">D7/9/F# G9/11 G9 E7/G# Am Am7 Am7</span>\n<span class=\"ly\">su luz fugaz alumbrando desde otro tiempo,</span>\n<span class=\"ly\">D7/9/F# Dm7 Dm7/G G7</span>\n<span class=\"ly\">una hoja lejana que lleva y que trae el viento. C»Do</span>\n<span class=\"ly\">Yo, sin embargo,</span>\n<span class=\"ly\">siento que estás aquí,</span>\n<span class=\"ly\">desafiando las leyes del tiempo</span>\n<span class=\"ly\">y de la distancia.</span>\n<span class=\"ly\">Sutil, quizás,</span>\n<span class=\"ly\">tan real como una fragancia:</span>\n<span class=\"ly\">Dm7 Eb7/9</span>\n<span class=\"ly\">un brevísimo lapso de estado de gracia.</span>\n<span class=\"ly\">D7/9 Bb7/9/11#</span>\n<span class=\"ly\">Eco, eco</span>\n<span class=\"ly\">D7/9</span>\n<span class=\"ly\">ocupando de a poco el espacio</span>\n<span class=\"cd\">Dm7 Dm7/G G7</span>\n<span class=\"ly\">de mi abrazo hueco(cid:0)..</span>\n<span class=\"lbl\">Interludio: C Em7 C Em7</span>\n<span class=\"ly\">Esto que canto ahora,</span>\n<span class=\"ly\">continuará</span>\n<span class=\"ly\">derivando latente en el éter,</span>\n<span class=\"ly\">eternamente(cid:0).</span>\n<span class=\"ly\">inerte, así,</span>\n<span class=\"ly\">a la espera de aquel oyente</span>\n<span class=\"ly\">Dm7 Eb7/9</span>\n<span class=\"ly\">que despierte a su eco de siglos de bella durmiente..</span>\n<span class=\"ly\">Eco, eco</span>\n<span class=\"ly\">ocupando de a poco el espacio</span>\n<span class=\"ly\">Dm7 Eb7/9</span>\n<span class=\"ly\">de mi abrazo hueco(cid:0)..</span>\n<span class=\"ly\">Esto que estás oyendo</span>\n<span class=\"ly\">ya no soy yo(cid:0)</span>\n<span class=\"lbl\">Acordes:</span>\n<span class=\"ly\">6º 5º 4º 3º 2º 1º</span>\n<span class=\"ly\">Em7 (cid:0)(cid:0)(cid:0)(cid:0)(cid:0) 0 2 0 0 3 0</span>\n<span class=\"ly\">E7/11 (cid:0)(cid:0)(cid:0)(cid:0)..0 2 0 1 1 0</span>\n<span class=\"ly\">Am/G (cid:0)(cid:0)(cid:0)(cid:0). 3 0 2 2 1 0</span>\n<span class=\"ly\">D7/9/F# . 2 0 0 2 1 0</span>\n<span class=\"ly\">G9/11 (cid:0)(cid:0)(cid:0)(cid:0) 3 0 0 2 1 0</span>\n<span class=\"ly\">G9 (cid:0)(cid:0)(cid:0)(cid:0)(cid:0). 3 x 0 2 0 x</span>\n<span class=\"ly\">E7/G# (cid:0)(cid:0)(cid:0)(cid:0) 4 x 0 4 3 0</span>\n<span class=\"ly\">Am7+ (cid:0)(cid:0)(cid:0)(cid:0) X 0 2 1 1 0</span>\n<span class=\"ly\">Am7 (cid:0)(cid:0)(cid:0)(cid:0). X 0 2 0 1 0</span>\n<span class=\"ly\">Dm7 (cid:0)(cid:0)(cid:0)(cid:0). X X 0 2 1 1</span>\n<span class=\"ly\">Dm7/G (cid:0)(cid:0)(cid:0). 3 X 0 2 1 1</span>\n<span class=\"ly\">Eb7/9 (cid:0)(cid:0)(cid:0)(cid:0).X 6 5 6 6 5 (cejillo 5º)</span>\n<span class=\"ly\">D7/9 (cid:0)(cid:0)(cid:0)(cid:0)(cid:0) X 5 4 5 5 0</span>\n<span class=\"ly\">Bb7/9/11#__ X 1 0 1 1 0</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 4, "title": "Guapos y guapas", "artist": "kanka", "url": "https://chords.lacuerda.net/kanka/guapos_y_guapas-2.shtml", "content": "<span class=\"ly\">⚲⚲⚲⚲</span>\n<span class=\"ly\">search artist and/or song</span>\n<span class=\"ly\">songs chords tuner favorites new songs videos lessons</span>\n<span class=\"ly\">Chords of El Kanka: Guapos y Guapas sign up sign in english</span>\n<span class=\"ly\">Guapos y Guapas</span>\n<span class=\"ly\">VVVVeeeerrrrssssiiiioooonnnnssss AAAArrrrttttiiiisssstttt RRRReeeecccceeeennnnttttssss</span>\n<span class=\"ly\">9.8</span>\n<span class=\"ly\">/10 (5)</span>\n<span class=\"ly\">El Kanka</span>\n<span class=\"ly\">Chords &amp; Lyrics</span>\n<span class=\"ly\">El Kanka corregir knkx0502</span>\n<span class=\"lbl\">Enviado por kheabro, basado en {DEF}Carlos</span>\n<span class=\"ly\">Chords &amp; Lyrics desconocido</span>\n<span class=\"ly\">INTRO: (Arpegio de arriba a abajo) Cmaj7, Dm7, Gadd11 X2</span>\n<span class=\"cd\">Cmaj7 Dm7</span>\n<span class=\"ly\">La gente se preocupa en demasía&#x27;</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Aquí y al otro lado de la esfera</span>\n<span class=\"cd\">Cmaj7 Dm7</span>\n<span class=\"ly\">Más por la imagen que por la poesía</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Más por el cuerpo que por la sesera C»Do</span>\n<span class=\"cd\">Cmaj7 A7 Dm7</span>\n<span class=\"ly\">Todos queremos ser guapos y guapas</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Llegar frescos al final de la escalera</span>\n<span class=\"cd\">Cmaj7 A7 Dm77</span>\n<span class=\"ly\">El que encuentra defectos se los tapa</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Con la mentirijilla por bandera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 Am7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 C</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"lbl\">SOLO: Cmaj7, Dm7, Gadd11 X2</span>\n<span class=\"cd\">Cmaj7 Dm7</span>\n<span class=\"ly\">Estamos estupendos y cuidadas</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">La juventud eterna pareciera</span>\n<span class=\"cd\">Cmaj7 Dm7</span>\n<span class=\"ly\">Del libro solo vemos la portada</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Y del armario solo la madera</span>\n<span class=\"cd\">Cmaj7 A7 Dm7</span>\n<span class=\"ly\">El alma es la perpetua silenciada</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Que cada cual respire como quiera</span>\n<span class=\"cd\">Cmaj7 A7 Dm7</span>\n<span class=\"ly\">Pero al final te la meten doblada</span>\n<span class=\"cd\">Gadd11 Cmaj7</span>\n<span class=\"ly\">Si no le das trabajo a la mollera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 Am7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 C#7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 C</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"cd\">C</span>\n<span class=\"ly\">Lorzas, barrigas, estrías, ojeras, bolsas</span>\n<span class=\"ly\">Pecas, arrugas, papada, vello, patas de gallo, semblante equino</span>\n<span class=\"cd\">Dm7 G7 C</span>\n<span class=\"ly\">Fallos, pelos, impurezas, dientes, jorobas</span>\n<span class=\"cd\">A7 G# G</span>\n<span class=\"ly\">Deformidades, cuerpos extraños, tal como estoy</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Estoy divino</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 Am7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 C#7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7 C#7</span>\n<span class=\"ly\">Dejadme por favor, que yo prefiera</span>\n<span class=\"cd\">Dm7 G7 Cmaj7</span>\n<span class=\"ly\">Cuidarme más por dentro que por fuera</span>\n<span class=\"ly\">This ,le is the work if its transcriptor and it represents his/her own interpretation of the song. This material is intended for PERSONAL USE ONLY. It is</span>\n<span class=\"ly\">strictly forbiden to copy, reproduce or retransmit the contents of this website. Legal actions will be taken if required.</span>\n<span class=\"ly\">SSSShhhhoooowwww CCCCoooommmmmmmmeeeennnnttttssss</span>\n<span class=\"ly\">[Guapos y Guapas acordes][Guapos y Guapas cifra]</span>\n<span class=\"ly\">©©©© LaCuerda.net · · · · · ·</span>\n<span class=\"ly\">legal notice privacy es en pt contact us</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 5, "title": "Inoportuna", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/inoportuna-2.shtml", "content": "<span class=\"ly\">Jorge Drexler jdre0602</span>\n<span class=\"lbl\">Enviado por Juan</span>\n<span class=\"ly\">Letra y Acordes 12 Segundos de Oscuridad</span>\n<span class=\"ly\">primera vez que subo/corrijo cancion,quiero subir de la manera</span>\n<span class=\"ly\">que lo toco yo que suena bastante bien y es muy parecido a lo</span>\n<span class=\"ly\">que toca Drexler,un capo.De notacion no tengo mucha idea,</span>\n<span class=\"ly\">espero q este todo bien.</span>\n<span class=\"ly\">saludos.</span>\n<span class=\"ly\">D5/F#: 200233</span>\n<span class=\"ly\">Am : 577555</span>\n<span class=\"ly\">C#º7 : x4545x</span>\n<span class=\"ly\">Asus4: x02230</span>\n<span class=\"ly\">Am7 : xx5577 (creo q se llama am7)</span>\n<span class=\"ly\">Am7* : xx5575</span>\n<span class=\"lbl\">Riff : E ------------------</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"ly\">B ------------------</span>\n<span class=\"ly\">G ------------------</span>\n<span class=\"ly\">D ------------------</span>\n<span class=\"ly\">A ------------------</span>\n<span class=\"ly\">E -5-7-8-9----------</span>\n<span class=\"lbl\">Riff 2: e ------------------</span>\n<span class=\"ly\">B --2/3--0----------</span>\n<span class=\"ly\">G ------------------</span>\n<span class=\"ly\">D ----------4-2-0---</span>\n<span class=\"ly\">A ------------------</span>\n<span class=\"ly\">E ------------------</span>\n<span class=\"ly\">***:cuando aparesca esto quiere decir que la nota en el espacio 5 del</span>\n<span class=\"lbl\">riff no se toca,ya q suena al rasguear Am.</span>\n<span class=\"lbl\">Intro</span>\n<span class=\"ly\">G C#º7 Am Riff 2</span>\n<span class=\"cd\">G C#º7 Am Am7 Am7*</span>\n<span class=\"cd\">G C#º7</span>\n<span class=\"ly\">Quien no lo sepa ya</span>\n<span class=\"cd\">Am D5/F#</span>\n<span class=\"ly\">lo aprenderá de prisa:</span>\n<span class=\"cd\">G C#º7</span>\n<span class=\"ly\">la vida no para,</span>\n<span class=\"cd\">Am D5/F#</span>\n<span class=\"ly\">no espera, no avisa.</span>\n<span class=\"cd\">G C#º7 Am</span>\n<span class=\"ly\">Tantos planes, tantos planes</span>\n<span class=\"lbl\">riff***</span>\n<span class=\"ly\">vueltos espuma</span>\n<span class=\"ly\">G D5/F#:</span>\n<span class=\"ly\">tu, por ejemplo,</span>\n<span class=\"cd\">Em</span>\n<span class=\"ly\">tan a tiempo</span>\n<span class=\"ly\">D Riff1 Riff 2</span>\n<span class=\"ly\">y tan inoportuna</span>\n<span class=\"ly\">G C#º7 Am Riff 2</span>\n<span class=\"ly\">inoportuna</span>\n<span class=\"cd\">G C#º7 Am Am7 Am7*</span>\n<span class=\"ly\">Eran más bien los días</span>\n<span class=\"ly\">de arriar las velas.</span>\n<span class=\"ly\">Toda señal a mi alrededor</span>\n<span class=\"ly\">decía: cautela.</span>\n<span class=\"ly\">Cuánta estrategia incumplida</span>\n<span class=\"ly\">aquella noche sin luna</span>\n<span class=\"ly\">tu, por ejemplo,</span>\n<span class=\"ly\">tan bienvenida</span>\n<span class=\"ly\">y tan inoportuna</span>\n<span class=\"ly\">G C#º7 Am Riff 2</span>\n<span class=\"ly\">inoportuna</span>\n<span class=\"ly\">G C#º7 Am Riff 2</span>\n<span class=\"cd\">C Bm</span>\n<span class=\"ly\">¿Quien sabe cuándo,</span>\n<span class=\"cd\">Em Asus4 A</span>\n<span class=\"ly\">cuándo es el momento de decir: ahora?</span>\n<span class=\"cd\">C Bm Em</span>\n<span class=\"ly\">Si todo alrededor te está gritando:</span>\n<span class=\"ly\">Asus4 A C Riff 2</span>\n<span class=\"ly\">¡Sin demora, sin demora!</span>\n<span class=\"ly\">Quien no lo sepa ya</span>\n<span class=\"ly\">lo aprenderá de prisa:</span>\n<span class=\"ly\">la vida no para,</span>\n<span class=\"ly\">no espera, no avisa.</span>\n<span class=\"ly\">Tantos planes, tantos planes</span>\n<span class=\"ly\">vueltos espuma</span>\n<span class=\"ly\">tu, por ejemplo,</span>\n<span class=\"ly\">tan a tiempo</span>\n<span class=\"ly\">y tan inoportuna</span>\n<span class=\"ly\">tan a tiempo</span>\n<span class=\"ly\">y tan inoportuna</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 6, "title": "Me gusta", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/me_gusta-2.shtml", "content": "<span class=\"ly\">El Kanka knkx0252</span>\n<span class=\"lbl\">Enviado por Carlos</span>\n<span class=\"ly\">Letra y Acordes De pana y rubí [2015]</span>\n<span class=\"ly\">Em7 - Em6 - Em - Em6 - Dmaj7/F# - D6/F# - Dmaj7/F# - D/F#</span>\n<span class=\"ly\">Em7 - Em6 - Em - Em6 - Dmaj9/F# (PARADA EN SECO)</span>\n<span class=\"cd\">Em7 Em6 Em Em6</span>\n<span class=\"ly\">Me gusta tu sonrisa Profidén,</span>\n<span class=\"cd\">Dmaj7/F# D6/F#</span>\n<span class=\"ly\">tu piel como de satén,</span>\n<span class=\"cd\">Dmaj7/F# D/F#</span>\n<span class=\"ly\">tus andares sinuosos.</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"cd\">Em7 Em6 Em Em6</span>\n<span class=\"ly\">Me gustan tus cimientos tan hermosos</span>\n<span class=\"ly\">Dmaj9/F# (PARADA EN SECO)</span>\n<span class=\"ly\">y tu amor tan animal.</span>\n<span class=\"cd\">Em7 Em6 Em Em6</span>\n<span class=\"ly\">Me gustan tus maneras delicadas</span>\n<span class=\"cd\">Dmaj7/F# D6/F#</span>\n<span class=\"ly\">y tus curvas tan cerradas</span>\n<span class=\"cd\">Dmaj7/F# D/F#</span>\n<span class=\"ly\">y la luz de tu belleza.</span>\n<span class=\"cd\">Em7 Em6 Em7b5 Bbdim7</span>\n<span class=\"ly\">Me gusta lo puro de tu pureza</span>\n<span class=\"cd\">Dmaj9/F# D7</span>\n<span class=\"ly\">y hasta aquí todo normal.</span>\n<span class=\"cd\">Em7 Gm6</span>\n<span class=\"ly\">Lo raro es que me gustan también</span>\n<span class=\"cd\">F#m7 B11/F# Cdim7</span>\n<span class=\"ly\">tus humos, tus manías, tus infiernos.</span>\n<span class=\"cd\">Em7 Bbdim7</span>\n<span class=\"ly\">Lo raro es que me gustan también</span>\n<span class=\"cd\">Dmaj9/F#</span>\n<span class=\"ly\">los callitos de tus pies.</span>\n<span class=\"ly\">Em7 - Em6 - Em - Em6 - Dmaj7/F# - D6/F# - Dmaj7/F# -D/F#</span>\n<span class=\"ly\">Leileleeeeeeee</span>\n<span class=\"ly\">Em7 - Em6 - Em - Em6 - Dmaj9/F# (PARADA EN SECO)</span>\n<span class=\"ly\">Leileleeeeeeee</span>\n<span class=\"ly\">D-----------------------------------------0-4----0-4---0-4----0-4---</span>\n<span class=\"ly\">A-------2-------2-------2-------2------0-------0------0------0------</span>\n<span class=\"ly\">E---0-3-----0-3-----0-3-----0-3-------------------------------------</span>\n<span class=\"ly\">Me gustas lista, guapa y estupenda,</span>\n<span class=\"ly\">tremebunda y tremenda,</span>\n<span class=\"ly\">con perfectos acabados.</span>\n<span class=\"ly\">D------------------------2------2-----0-4-----0-4----0-4-------------------</span>\n<span class=\"ly\">A-------2-------2----0-4----0-4-----0-------0------0-------(PARADA EN SECO)</span>\n<span class=\"ly\">E---0-3-----0-3------------------------------------------------------------</span>\n<span class=\"ly\">Me gustas, con tus rasgos sonrosados</span>\n<span class=\"ly\">y tu risa inmortal.</span>\n<span class=\"cd\">Em7 Em6 Em Em6</span>\n<span class=\"ly\">Me gustan tus pequeñas maravillas,</span>\n<span class=\"cd\">Dmaj7/F# D6/F#</span>\n<span class=\"ly\">Tu redobles de tortilla,</span>\n<span class=\"cd\">Dmaj7/F# D/F#</span>\n<span class=\"ly\">Tus palabras y tus senos.</span>\n<span class=\"cd\">Em7 Em6 Em7b5 Bbdim7</span>\n<span class=\"ly\">Me gusta de tu ser todo lo bueno...</span>\n<span class=\"cd\">Dmaj9/F# D7</span>\n<span class=\"ly\">Y hasta aquí todo normal.</span>\n<span class=\"cd\">Em7 Gm6</span>\n<span class=\"ly\">Lo raro es que me gustan también</span>\n<span class=\"cd\">F#m7 B11/F# Cdim7</span>\n<span class=\"ly\">tus humos, tus manías, tus infiernos.</span>\n<span class=\"cd\">Em7 Bbdim7</span>\n<span class=\"ly\">Lo raro es que me gustan también</span>\n<span class=\"cd\">Dmaj9/F# D7</span>\n<span class=\"ly\">los callitos de tus pies.</span>\n<span class=\"cd\">Em7 Gm6</span>\n<span class=\"ly\">Lo raro es que me gustan tambien</span>\n<span class=\"cd\">F#m7 B11/F# Cdim7</span>\n<span class=\"ly\">tus manos helaitas en invierno</span>\n<span class=\"cd\">Em7 Bbdim7</span>\n<span class=\"ly\">Lo raro es que me gustan tambien</span>\n<span class=\"cd\">Dmaj9/F# D7</span>\n<span class=\"ly\">los callitos de tus pies Lelelele</span>\n<span class=\"cd\">Em7 Gm6</span>\n<span class=\"ly\">Lerelere LereLere Lele</span>\n<span class=\"cd\">F#m7 B11/F# Cdim7</span>\n<span class=\"ly\">Lerelere LereLere Lele</span>\n<span class=\"cd\">Em7 Gm6</span>\n<span class=\"ly\">Lerelere LereLere Lele</span>\n<span class=\"cd\">F#m7 B11/F# Cdim7</span>\n<span class=\"ly\">Lerelere Lelelerelelelelelele</span>\n<span class=\"lbl\">Acordes</span>\n<span class=\"ly\">E-A-D-G-B-E E-A-D-G-B-E</span>\n<span class=\"ly\">Em7 0-2-2-0-3-0 Em7b5 X-X-2-3-3-3</span>\n<span class=\"ly\">Em6 0-2-2-0-2-0 Bbdim7 X-1-2-0-2-0</span>\n<span class=\"ly\">Em 0-2-2-0-0-0 D7 X-X-0-2-1-2</span>\n<span class=\"ly\">Dmaj7/F# 2-0-0-2-2-2 Gm6 3-X-2-3-3-0</span>\n<span class=\"ly\">D6/F# 2-0-0-2-0-2 F#m7 2-0-2-2-2-0</span>\n<span class=\"ly\">D/F# 2-0-0-2-3-2 B11/F# 2-0-1-2-0-0</span>\n<span class=\"ly\">Dmaj9/F# 2-0-0-2-2-0 Cdim7 0-3-4-2-4-2</span>", "note": null, "set_id": "set1", "set_label": "1er set — Apertura potente"}, {"num": 7, "title": "La edad del cielo", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/la_edad_del_cielo.shtml", "content": "<span class=\"ly\">Empieza a vivir tu</span>\n<span class=\"ly\">próxima historia</span>\n<span class=\"ly\">Corrección de acordes de las versiones anteriores.</span>\n<span class=\"ly\">En todos los acordes suena un SOL... ;)</span>\n<span class=\"cd\">C5 A7</span>\n<span class=\"cd\">C5 A7</span>\n<span class=\"ly\">Cadd9 A7sus4</span>\n<span class=\"ly\">No somos más que una gota de luz</span>\n<span class=\"ly\">G C»Do</span>\n<span class=\"ly\">una estrella fugaz</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">una chispa tan sólo en la edad del cielo.</span>\n<span class=\"ly\">Cadd9 A7sus4</span>\n<span class=\"ly\">No somos lo que quisiéramos ser</span>\n<span class=\"cd\">G</span>\n<span class=\"lbl\">solo un breve latir</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">en un silencio antiguo con la edad del cielo.</span>\n<span class=\"cd\">Cmaj7 C#dim</span>\n<span class=\"ly\">Calma, todo esta calma</span>\n<span class=\"cd\">G/D</span>\n<span class=\"ly\">deja que el beso dure</span>\n<span class=\"ly\">negocios y D#º</span>\n<span class=\"ly\">finanzas deja que el tiempo cure</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">deja que el alma</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">tenga la misma edad que la edad del cielo.</span>\n<span class=\"cd\">C5 A7</span>\n<span class=\"cd\">C5 A7</span>\n<span class=\"ly\">Cadd9 A7sus4</span>\n<span class=\"ly\">No somos más que un puñado de mar</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">una broma de Dios</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">un capricho del sol del jardín del cielo.</span>\n<span class=\"ly\">Cadd9 A7sus4</span>\n<span class=\"ly\">No damos pie entre tanto tic tac</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">entre tanto Big Bang</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">sólo un grano de sal en el mar del Cielo.</span>\n<span class=\"cd\">Cmaj7 C#dim</span>\n<span class=\"ly\">Calma, todo esta calma</span>\n<span class=\"cd\">G/D</span>\n<span class=\"ly\">deja que el beso dure</span>\n<span class=\"cd\">D#º</span>\n<span class=\"ly\">deja que el tiempo cure</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">deja que el alma</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">tenga la misma edad que la edad del cielo.</span>\n<span class=\"ly\">A7sus4 Cadd9</span>\n<span class=\"ly\">Oooooooooooooooooh Uououoooooooooooh</span>\n<span class=\"ly\">A7sus4 Cadd9</span>\n<span class=\"ly\">Aaaaaaaaaaaaaaaah Uououoooooooooooh</span>\n<span class=\"cd\">G Dsus4</span>\n<span class=\"ly\">Aaaaaaaaaaaaaaaah Uououoooooooooooh</span>\n<span class=\"cd\">Cmaj7 C#dim</span>\n<span class=\"ly\">Calma, todo esta calma</span>\n<span class=\"cd\">G/D</span>\n<span class=\"ly\">deja que el beso dure</span>\n<span class=\"cd\">D#º</span>\n<span class=\"ly\">deja que el tiempo cure</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">deja que el alma</span>\n<span class=\"cd\">Dsus4</span>\n<span class=\"ly\">tenga la misma edad que la edad del cielo.</span>\n<span class=\"ly\">---</span>\n<span class=\"ly\">C5 x3x013</span>\n<span class=\"cd\">Cadd9 x30010</span>\n<span class=\"ly\">A7sus4 x02030</span>\n<span class=\"ly\">Dsus4 xx0233</span>\n<span class=\"cd\">Cmaj7 x32000</span>\n<span class=\"cd\">C#dim x42020</span>\n<span class=\"cd\">G/D x50003</span>\n<span class=\"ly\">D#º xx1003</span>", "note": null, "set_id": "set2", "set_label": "Bajada 1 — Intimidad"}, {"num": 8, "title": "Llámame fino", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/llamame_fino.shtml", "content": "<span class=\"ly\">El Kanka corregir knkx0261</span>\n<span class=\"lbl\">Enviado por WillyWarmer</span>\n<span class=\"ly\">desconocido</span>\n<span class=\"ly\">!Hay aclaraciones al final! Cambio rápido</span>\n<span class=\"ly\">INTRO(trompeta): FA - RE9 - DO9 (*) - DO - LAm7 - (RE#9-RE9-DO#9-DO9)</span>\n<span class=\"ly\">FA - RE9 - DO9 (*) - DO - LAm7 - SOL#7 - SOL7</span>\n<span class=\"cd\">DO/SOL RE9</span>\n<span class=\"ly\">No me gusta el fútbol, denúnciame</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"cd\">FA FAm RE7 DO9 SOL#7 - SOL7</span>\n<span class=\"ly\">No me va la moda, odio el macramé</span>\n<span class=\"cd\">DO/SOL RE9</span>\n<span class=\"ly\">Me cansa la misa, no se bailar</span>\n<span class=\"cd\">FA FAm RE7 FA</span>\n<span class=\"ly\">En cuanto a las bodas, no me invites más</span>\n<span class=\"lbl\">PUENTE:</span>\n<span class=\"ly\">E||--------------||</span>\n<span class=\"ly\">Anáhuac Online A||--------------||</span>\n<span class=\"ly\">D||--------------||</span>\n<span class=\"ly\">G||--3/5---4---2-||</span>\n<span class=\"ly\">B||--3/5---3---1-||</span>\n<span class=\"ly\">E||--------------||</span>\n<span class=\"cd\">FA RE9</span>\n<span class=\"ly\">No me gustan los horarios,no me cuadra el calendario</span>\n<span class=\"ly\">CSIb Sib(**) X</span>\n<span class=\"ly\">No me fío del comisario y, me aburre el super mario...</span>\n<span class=\"cd\">FA - SOL - DO</span>\n<span class=\"ly\">uuu,uuu, u</span>\n<span class=\"lbl\">ESTRIBILLO:</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"lbl\">INTRO</span>\n<span class=\"cd\">DO/SOL RE9</span>\n<span class=\"ly\">No veo la tele, fustígame</span>\n<span class=\"cd\">FA FAm RE7 DO9 SOL#7 - SOL7</span>\n<span class=\"ly\">No fumo ducados, ni uso channel</span>\n<span class=\"cd\">DO/SOL RE9</span>\n<span class=\"ly\">Odio el famoseo, y me da igual</span>\n<span class=\"cd\">FA FAm RE7 FA</span>\n<span class=\"ly\">Con quien se ha enrrollado, &quot;fulano de cuál&quot;</span>\n<span class=\"lbl\">PUENTE:</span>\n<span class=\"ly\">E||--------------||</span>\n<span class=\"ly\">A||--------------||</span>\n<span class=\"ly\">D||--------------||</span>\n<span class=\"ly\">G||--3/5---4---2-||</span>\n<span class=\"ly\">B||--3/5---3---1-||</span>\n<span class=\"ly\">E||--------------||</span>\n<span class=\"cd\">FA RE9</span>\n<span class=\"ly\">Me da entre miedo y pereza, la torpeza de su alteza</span>\n<span class=\"ly\">CSIb Sib(**) X</span>\n<span class=\"ly\">Me irrita su realeza y, me cago en su nobleza...</span>\n<span class=\"cd\">FA - SOL - DO</span>\n<span class=\"ly\">uuu,uuu, u</span>\n<span class=\"lbl\">ESTRIBILLO:</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"lbl\">ACORDES DEL INTRO SOBRE:</span>\n<span class=\"ly\">Como les gusta decirnos lo que tiene que gustarnos,</span>\n<span class=\"ly\">lo que ha de divertirnos lo que debe enamorarnos</span>\n<span class=\"ly\">No pienso cantar el himno ni tirar mas de la cuerda</span>\n<span class=\"ly\">hasta nunca mundo indigno si me queréis irse a la mierda.</span>\n<span class=\"lbl\">ESTRIBILLO:</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"ly\">Rápido</span>\n<span class=\"ly\">DO DO9-DO#9-RE9</span>\n<span class=\"ly\">Es lo que hay, llamame fino</span>\n<span class=\"ly\">RE9 SOL-FA#-FA</span>\n<span class=\"ly\">Si no te gusta, cambia de acera</span>\n<span class=\"cd\">FA FAm</span>\n<span class=\"ly\">Que no me asfalten el camino, mejor</span>\n<span class=\"cd\">SOL7</span>\n<span class=\"ly\">Camino a mi manera</span>\n<span class=\"cd\">FAm SOL7</span>\n<span class=\"ly\">Mejor camina a tu manera</span>\n<span class=\"ly\">DO/SOL RE9 FA-FAm</span>\n<span class=\"ly\">aaaah, aaaaah, aaaaaaaah</span>\n<span class=\"cd\">DO/SOL</span>\n<span class=\"ly\">No me gusta el fútbol.</span>\n<span class=\"ly\">**IMPORTANTE LEER**:</span>\n<span class=\"ly\">Do9(*): El Kanka hace dos variaciones sobre este acorde en el mismo compás</span>\n<span class=\"ly\">cuando lo toca</span>\n<span class=\"ly\">E||-x-||-x-||</span>\n<span class=\"ly\">A||-2-||-3-||</span>\n<span class=\"ly\">D||-2-||-2-||</span>\n<span class=\"ly\">G||-3-||-3-||</span>\n<span class=\"ly\">B||-3-||-3-||</span>\n<span class=\"ly\">E||-x-||-x-||</span>\n<span class=\"ly\">Sib(**): Es una variación de Si bemol que no sabía como llamar,</span>\n<span class=\"ly\">por eso la indico aquí</span>\n<span class=\"ly\">E||-x-||</span>\n<span class=\"ly\">A||-1-||</span>\n<span class=\"ly\">D||-0-||</span>\n<span class=\"ly\">G||-3-||</span>\n<span class=\"ly\">B||-3-||</span>\n<span class=\"ly\">E||-x-||</span>\n<span class=\"ly\">X: Es un acorde de cuyo nombre no quiero acordarme :P</span>\n<span class=\"ly\">E||-x-||</span>\n<span class=\"ly\">A||-x-||</span>\n<span class=\"ly\">D||-2-||</span>\n<span class=\"ly\">G||-3-||</span>\n<span class=\"ly\">B||-2-||</span>\n<span class=\"ly\">E||-0-||</span>\n<span class=\"ly\">Espero que os sea útil. Es mi primer aporte y absolutamente toda crítica será</span>\n<span class=\"ly\">bien recibida. También podéis apoyaros de la versión de El Kanka con</span>\n<span class=\"ly\">El Niño de la Hipoteca para cercioraros de ritmos, cambios y tal,</span>\n<span class=\"ly\">a mi me ayudó mucho.</span>\n<span class=\"ly\">Un saludo.</span>", "note": null, "set_id": "set2", "set_label": "Bajada 1 — Intimidad"}, {"num": 9, "title": "Horas", "artist": "drexler", "url": "https://www.cifraclub.com/jorge-drexler/horas/", "content": "<span class=\"cd\">Am7</span>\n<span class=\"ly\">No queríamos dormir</span>\n<span class=\"ly\">D7/9 Bm7-E7/#9</span>\n<span class=\"ly\">nos queríamos comer el mundo</span>\n<span class=\"ly\">Am7 Bm#75 Em7-E7/9</span>\n<span class=\"ly\">No podíamos dejar de estar a solas ni un segundo</span>\n<span class=\"cd\">Cm</span>\n<span class=\"ly\">Ida y vuelta de la cama</span>\n<span class=\"ly\">F7/9 Bm7b5 E7/#9</span>\n<span class=\"ly\">a la alfombra voladora</span>\n<span class=\"cd\">Am7</span>\n<span class=\"ly\">nos bastaba con dejar pasar</span>\n<span class=\"ly\">D7/9 Gmaj7 /G#dim7</span>\n<span class=\"ly\">dejar pasar las horas</span>\n<span class=\"ly\">Am7-D7/9-D7/b9 Bm7 E7/#9</span>\n<span class=\"ly\">Hoooras, hoooooras,</span>\n<span class=\"ly\">Am7 D7 Dm7---G7/6 G7/#5</span>\n<span class=\"ly\">colgados como dos computadoras</span>\n<span class=\"ly\">Am7-D7/9-D7/b9 Bm7 E7/#9/11</span>\n<span class=\"ly\">Hoooras, hoooooras,</span>\n<span class=\"ly\">Am7 D7/9 Gmaj7/G#dim7</span>\n<span class=\"ly\">meta echar carbón en la locomotora</span>\n<span class=\"ly\">Recorriendo aquel edén</span>\n<span class=\"ly\">de sólo dos metros cuadrados</span>\n<span class=\"ly\">¿Que será de aquel colchón, de aquel colchón tan maltratado?</span>\n<span class=\"ly\">Allá íbamos tu y yo</span>\n<span class=\"ly\">llevados por el remolino</span>\n<span class=\"ly\">nos dejábamos caer, caer,</span>\n<span class=\"ly\">caer hacia el destino</span>\n<span class=\"lbl\">Durante</span>\n<span class=\"ly\">horas, horas,</span>\n<span class=\"ly\">colgados como dos computadoras</span>\n<span class=\"ly\">Horas, horas,</span>\n<span class=\"ly\">meta echar carbón en la locomotora</span>\n<span class=\"ly\">No queríamos dormir</span>\n<span class=\"ly\">nos queríamos comer a besos</span>\n<span class=\"ly\">No queríamos dejar de cometer ni un solo exceso</span>\n<span class=\"ly\">Nos venía a saludar en el balcón la luna llena</span>\n<span class=\"ly\">Nos bastaba con dejar morir</span>\n<span class=\"ly\">dejar morir la pena</span>\n<span class=\"lbl\">Acordes (no se pueden quejar, señores):</span>\n<span class=\"ly\">Am7 575555</span>\n<span class=\"ly\">D7/9 x5455x</span>\n<span class=\"ly\">Bm7 797777</span>\n<span class=\"ly\">E7/#9 076780</span>\n<span class=\"ly\">Bm7#5 7x789x</span>\n<span class=\"ly\">Em7 075790</span>\n<span class=\"ly\">E7/9 076770</span>\n<span class=\"ly\">Cm x35343</span>\n<span class=\"ly\">F7/9 131213</span>\n<span class=\"ly\">Gmaj7 3x443x</span>\n<span class=\"ly\">G#dim7 4x343x</span>\n<span class=\"ly\">D7/b9 x5454x</span>\n<span class=\"ly\">D7 x5453x</span>\n<span class=\"ly\">Dm7 x5356x</span>\n<span class=\"ly\">G7/6 3x345x</span>\n<span class=\"ly\">G7/#5 3x344x</span>\n<span class=\"ly\">E7/#9/11 075785</span>", "note": null, "set_id": "set2", "set_label": "Bajada 1 — Intimidad"}, {"num": 10, "title": "Querría", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/querria-3.shtml", "content": "<span class=\"ly\">El Kanka knkx0203</span>\n<span class=\"lbl\">Enviado por Rafael</span>\n<span class=\"ly\">Letra y Acordes desconocido [2015]</span>\n<span class=\"ly\">Tablatura</span>\n<span class=\"ly\">Es una pequeña modificación basada en el tutorial de Mauro Martinez:</span>\n<span class=\"ly\">https://www.youtube.com/watch?v=vTDog6v6GFc</span>\n<span class=\"lbl\">Acordes para la intro:</span>\n<span class=\"ly\">EADGBe</span>\n<span class=\"ly\">Am7 xx5555</span>\n<span class=\"ly\">B7 224242</span>\n<span class=\"ly\">Bdim7 x2313x</span>\n<span class=\"ly\">D6 555777</span>\n<span class=\"ly\">Cm6 333545</span>\n<span class=\"lbl\">INTRO: C»Do</span>\n<span class=\"ly\">(Fill 1) - Am7 - B7 - Em</span>\n<span class=\"ly\">(Fill 1) - Am7 - B7 - Em - Bdis7</span>\n<span class=\"ly\">(Fill 3) - Am7 - D6 - G7 - Cm6 - F#7</span>\n<span class=\"ly\">(Fill 2) - Em - B7 - B7/F# - Em</span>\n<span class=\"cd\">Em Am</span>\n<span class=\"ly\">Querría sujetarte las mañanas,</span>\n<span class=\"cd\">B11 B11/F# C9 B7 B7/F#</span>\n<span class=\"ly\">hacer malabarismos con tu voz y con mi voz.</span>\n<span class=\"cd\">Em Am</span>\n<span class=\"ly\">Querría abrirte todas las ventanas</span>\n<span class=\"cd\">B11 Cdim7 Em</span>\n<span class=\"ly\">pa&#x27; que nos diese la brisa del mar en el colchón</span>\n<span class=\"cd\">Am Em</span>\n<span class=\"ly\">Querría festejar tus alegrías,</span>\n<span class=\"cd\">B7</span>\n<span class=\"ly\">sufrir tus melancolías</span>\n<span class=\"cd\">B7/F# Em Bdim7</span>\n<span class=\"ly\">y besarte en el corazón.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Querría guardar esta melodía</span>\n<span class=\"cd\">F#7(b13) B7 Cdim7 Em</span>\n<span class=\"ly\">y escribirte una canción con todo lo que querría.</span>\n<span class=\"ly\">Am B7 Em/Em6</span>\n<span class=\"ly\">Si yo pudiera,</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">si me dejaras,</span>\n<span class=\"ly\">Am B7 Em/Em6</span>\n<span class=\"ly\">si me atreviera,</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">si el cielo hablara</span>\n<span class=\"cd\">E7 Am Am/E</span>\n<span class=\"ly\">te diría que pierdo las ganas de odiar</span>\n<span class=\"cd\">Em</span>\n<span class=\"ly\">si acomodo mis pasos a tu caminar</span>\n<span class=\"cd\">B11 B11/F# Em Bdim7</span>\n<span class=\"ly\">y que el mundo contigo se ve menos enfermo,</span>\n<span class=\"cd\">Am D#dim7</span>\n<span class=\"ly\">que ya es primavera en el corte inglés,</span>\n<span class=\"cd\">Em Edim7</span>\n<span class=\"ly\">que he pedido una caña y me han puesto tres,</span>\n<span class=\"cd\">F#7 B7</span>\n<span class=\"ly\">que va a ser que se ha puesto de moda el amor otra vez.</span>\n<span class=\"ly\">++INTRO++</span>\n<span class=\"ly\">Em/9add Am7</span>\n<span class=\"ly\">Querría traducirte la mirada,</span>\n<span class=\"cd\">B11 B7/F# C9 B11 B11/F#</span>\n<span class=\"ly\">pararme en tu parada y plantarme en tu jardín</span>\n<span class=\"cd\">Em Am</span>\n<span class=\"ly\">y protagonizar tus carcajadas</span>\n<span class=\"cd\">B11 B11/F# Cdim7 Em</span>\n<span class=\"ly\">y que mis madrugadas fuesen todas para ti.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Querría salpimentarte los días,</span>\n<span class=\"cd\">B7</span>\n<span class=\"ly\">rebuscarte las manías</span>\n<span class=\"cd\">B7/F# Em Bdim7</span>\n<span class=\"ly\">y darle armonía a tu son.</span>\n<span class=\"cd\">Am B7</span>\n<span class=\"ly\">Querría que toda la poesía</span>\n<span class=\"cd\">F#7(b13) B7 Cdim7 Em</span>\n<span class=\"ly\">se rindiera ante la rima de tu vida con la mía.</span>\n<span class=\"ly\">Am B7 Em/Em6</span>\n<span class=\"ly\">Si yo pudiera,</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">si me dejaras,</span>\n<span class=\"ly\">Am B7 Em/Em6</span>\n<span class=\"ly\">si me atreviera,</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">si el cielo hablara</span>\n<span class=\"cd\">E7 Am Am/E</span>\n<span class=\"ly\">te diría que pierdo las ganas de odiar</span>\n<span class=\"cd\">Em</span>\n<span class=\"ly\">si acomodo mis pasos a tu caminar</span>\n<span class=\"cd\">B11 B11/F# Em Bdim7</span>\n<span class=\"ly\">y que el mundo contigo se ve menos enfermo,</span>\n<span class=\"cd\">Am D#dim7</span>\n<span class=\"ly\">que ya es primavera en el corte inglés,</span>\n<span class=\"cd\">Em Edim7</span>\n<span class=\"ly\">que he pedido una caña y me han puesto tres,</span>\n<span class=\"cd\">F#7 B7 Em</span>\n<span class=\"ly\">que va a ser que se ha puesto de moda el amor otra vez.</span>\n<span class=\"cd\">Cdim7 F#7 B7 Em</span>\n<span class=\"ly\">que va a ser que se ha puesto de moda el amor otra vez.</span>\n<span class=\"cd\">Cdim7 F#7 B7 Em</span>\n<span class=\"ly\">Que va a ser que se ha puesto de moda el amor otra vez.</span>\n<span class=\"ly\">++INTRO++</span>\n<span class=\"lbl\">Acordes para el resto de la canción:</span>\n<span class=\"ly\">EADGBe</span>\n<span class=\"cd\">B11 x21200</span>\n<span class=\"ly\">B11/F# 221200</span>\n<span class=\"ly\">C9 032330</span>\n<span class=\"ly\">Cdim7 x3424x</span>\n<span class=\"ly\">Bdim7 x2313x</span>\n<span class=\"ly\">Em/9add 024000</span>\n<span class=\"cd\">Am7 x02013</span>\n<span class=\"ly\">Em6 022020</span>\n<span class=\"ly\">D#dim7 xx1212</span>\n<span class=\"ly\">Edim7 xx2323</span>\n<span class=\"ly\">F#7(b13) 242332</span>", "note": null, "set_id": "set2", "set_label": "Bajada 1 — Intimidad"}, {"num": 11, "title": "Me haces bien", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/me_haces_bien.shtml", "content": "<span class=\"ly\">Jorge Drexler jdre0161</span>\n<span class=\"lbl\">Enviado por marcelo</span>\n<span class=\"ly\">Letra y Acordes desconocido</span>\n<span class=\"ly\">Tablatura</span>\n<span class=\"lbl\">Intro: A, A11, A, Amj7, Amj7/11,</span>\n<span class=\"cd\">A7, D9/F#, E7, A, A11, A</span>\n<span class=\"cd\">A A11 A</span>\n<span class=\"ly\">Para contar te canto</span>\n<span class=\"ly\">Amj7 Amj7/11 A7</span>\n<span class=\"ly\">quiero que sepas cuanto</span>\n<span class=\"ly\">D9/F# ACORDES</span>\n<span class=\"ly\">me haces bien 6° 5° 4° 3° 2° 1°</span>\n<span class=\"ly\">E7 A11 x 0 2 2 3 0</span>\n<span class=\"ly\">me haces bien Amj7 x 0 2 1 2 0</span>\n<span class=\"ly\">A A11 A Amj7/11 x 0 2 1 3 0</span>\n<span class=\"ly\">me haces bien D9/F# 2 0 0 2 3 0</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"ly\">F#m7 2 4 2 2 2 2</span>\n<span class=\"ly\">Bm7/9# 2 2 4 2 2 2</span>\n<span class=\"ly\">Te quiero de mil modos A13 x 0 2 2 2 2</span>\n<span class=\"ly\">te quiero y sobre todo E6 0 2 2 3 2 0</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Basta ver</span>\n<span class=\"cd\">C#7 F#m7</span>\n<span class=\"ly\">el reflejo de tus ojos en los míos</span>\n<span class=\"ly\">Bm7/9# B7</span>\n<span class=\"ly\">como se lleva el frío</span>\n<span class=\"cd\">Bm7 E7</span>\n<span class=\"ly\">para entender</span>\n<span class=\"ly\">Que el corazón no miente</span>\n<span class=\"ly\">que afortunadamente</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"ly\">me haces bien</span>\n<span class=\"lbl\">interludio: A, Amj7,A13, A7, D9/F#</span>\n<span class=\"cd\">E6, A, A11, A</span>\n<span class=\"ly\">Para contarte canto......</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Basta ver</span>\n<span class=\"cd\">C#7 F#m7</span>\n<span class=\"ly\">el reflejo de tus ojos en los mios</span>\n<span class=\"ly\">Bm7/9# B7</span>\n<span class=\"ly\">como se lleva el frío</span>\n<span class=\"cd\">Bm7 E7</span>\n<span class=\"ly\">Me haces bien, Me haces bien</span>\n<span class=\"cd\">A B7 Bm7</span>\n<span class=\"ly\">Me haces bien, Me haces bien</span>\n<span class=\"cd\">E7 A B7</span>\n<span class=\"ly\">Me haces bien, Me haces bien</span>\n<span class=\"cd\">Bm7 E7</span>\n<span class=\"ly\">Me haces bien, Me haces bien</span>\n<span class=\"ly\">Fin : A, A11, A, Amj7, Amj7/11,</span>\n<span class=\"cd\">A7, D9/F#, E7, A, A11, A</span>\n<span class=\"ly\">Transcripción : Marcelo Jordán (Chile)</span>\n<span class=\"ly\">marcelojordan@starmedia.com</span>", "note": null, "set_id": "set3", "set_label": "Subida media"}, {"num": 12, "title": "Lo mal que estoy", "artist": "kanka", "url": "https://www.cifraclub.com/el-kanka/lo-mal-que-estoy/", "content": "<span class=\"ly\">Lo mal que Estoy y lo poco que me Quejo</span>\n<span class=\"lbl\">Acordes:</span>\n<span class=\"cd\">Am - B7 - Em</span>\n<span class=\"lbl\">Variante de cada estrofa.</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Siempre me levanto con el pie mirando al suelo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">La voz muda .. me saluda desde lejos,</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"ly\">me regala su silencio .. pero yo me hago el sueco ..</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"ly\">mirándome en el espejo.</span>\n<span class=\"ly\">Y el espejo me devuelve su reflejo sin el mío,</span>\n<span class=\"ly\">yo lo asumo y sigo.. pero no me fío.</span>\n<span class=\"ly\">Me autodiagnostico sin un éxito mínimo,</span>\n<span class=\"ly\">así que me deprimo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Tengo el alma en cuarentena .. y roto el cuerpo.</span>\n<span class=\"ly\">¡Qué dolor, qué pena .. y qué tormento!</span>\n<span class=\"ly\">Salgo a las aceras .. el andar desafinado.</span>\n<span class=\"ly\">La maleta llena de cantos rodados.</span>\n<span class=\"ly\">La sonrisa boca abajo de subir tanta escalera ..</span>\n<span class=\"ly\">sin llegar a ningún lado.</span>\n<span class=\"ly\">Y la historia me critica porque siempre estoy penando.</span>\n<span class=\"ly\">Y yo le digo: Pobre de aquel que oculta su llanto</span>\n<span class=\"ly\">Un ladrillo no sabe llorar ..</span>\n<span class=\"ly\">pero tampoco lleva bien el compás.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Tengo el alma en cuarentena .. y roto el cuerpo.</span>\n<span class=\"ly\">¡Qué dolor, qué pena .. y qué tormento!</span>\n<span class=\"ly\">Y cómo me duele la vida entera ..</span>\n<span class=\"ly\">Y el médico me ha dicho que ponga en entredicho</span>\n<span class=\"ly\">la verdad más verdadera, que llegue tarde al nicho ..</span>\n<span class=\"ly\">y que a cada dolor nuevo .. le busque un placebo.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">Chin pon ..!</span>", "note": null, "set_id": "set3", "set_label": "Subida media"}, {"num": 13, "title": "Soledad", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/soledad.shtml", "content": "<span class=\"ly\">Jorge Drexler jdre0611</span>\n<span class=\"lbl\">Enviado por Nicolás</span>\n<span class=\"ly\">Letra y Acordes 12 Segundos de Oscuridad [2006]</span>\n<span class=\"ly\">--------------------------------------------------------------</span>\n<span class=\"ly\">Un tema excelente de Jorge Drexler. Espero que lo disfruten.</span>\n<span class=\"ly\">Les recomiendo escuchar bien el original, y les pido disculpas</span>\n<span class=\"ly\">por las imprecisiones en los nombres de los tonos.</span>\n<span class=\"ly\">Todos los comentarios y/o correcciones serán bienvenidos.</span>\n<span class=\"ly\">Nicolás De Francesco</span>\n<span class=\"ly\">--------------------------------------------------------------</span>\n<span class=\"lbl\">Acordes:</span>\n<span class=\"ly\">EADGBe</span>\n<span class=\"ly\">B7/F#: 2212xx * Tocar como arpegio descendente</span>\n<span class=\"ly\">E: 022100 C»Do</span>\n<span class=\"ly\">C#7/G#: 4434xx * Tocar como arpegio descendente</span>\n<span class=\"ly\">F#m: 244222</span>\n<span class=\"ly\">A: x02220</span>\n<span class=\"ly\">A6/9: x04400</span>\n<span class=\"ly\">G7/5b: 3x342x</span>\n<span class=\"ly\">F#7/5b: 2x231x</span>\n<span class=\"ly\">Asus2/F#: 202200</span>\n<span class=\"ly\">B7Add11: 201200</span>\n<span class=\"ly\">E7: 020130</span>\n<span class=\"ly\">G#m7*: 4x440x</span>\n<span class=\"ly\">C#m7*: 9x990x</span>\n<span class=\"ly\">G#7/5+: 4x455x</span>\n<span class=\"ly\">G#7: 4x454x</span>\n<span class=\"ly\">C#m: x46654</span>\n<span class=\"ly\">C#m7+: x46554</span>\n<span class=\"ly\">C#m7: x46454</span>\n<span class=\"ly\">C#m6: x4635x</span>\n<span class=\"ly\">G#m: 466444</span>\n<span class=\"ly\">G#m7+: 465444</span>\n<span class=\"ly\">G#m7: 464444</span>\n<span class=\"ly\">G#m6: 4x344x</span>\n<span class=\"ly\">------------------------------------------------------------</span>\n<span class=\"lbl\">Intro:</span>\n<span class=\"ly\">(B7/F# - E ) x 4</span>\n<span class=\"cd\">B7/F# - E</span>\n<span class=\"ly\">Soledad</span>\n<span class=\"cd\">B7/F# - E B7/F# - E B7/F# - E</span>\n<span class=\"ly\">Aquí están mis credenciales</span>\n<span class=\"cd\">B7/F# - E B7/F# - E</span>\n<span class=\"ly\">Vengo llamando a tu puerta</span>\n<span class=\"cd\">C#7/G# F#m B7/F# - F#m</span>\n<span class=\"ly\">Desde hace un tiempo</span>\n<span class=\"ly\">B7/F# A A6/9 A B7/F# - E B7/F# - E</span>\n<span class=\"ly\">Creo que pasaremos juntos temporales</span>\n<span class=\"ly\">G7/5b F#7/5b Asus2/F# B7Add11 E B7/F# - E</span>\n<span class=\"ly\">Propongo que tú y yo nos vayamos conociendo</span>\n<span class=\"ly\">Aquí estoy</span>\n<span class=\"ly\">Te traigo mis cicatrices,</span>\n<span class=\"ly\">Palabras sobre papel pentagramado</span>\n<span class=\"ly\">No te fijes mucho en lo que dicen</span>\n<span class=\"ly\">Me encontrarás</span>\n<span class=\"ly\">En cada cosa que he callado</span>\n<span class=\"cd\">E7 A</span>\n<span class=\"ly\">Ya pasó</span>\n<span class=\"ly\">A6/9 A A6/9 A A6/9 A</span>\n<span class=\"ly\">Ya he dejado que se empañe</span>\n<span class=\"ly\">A6/9 A G#m7* G#m7* G#m7* C#m7*</span>\n<span class=\"ly\">La ilusión de que vi - vir</span>\n<span class=\"cd\">G#m7* C#m7* G#m7* Asus2/F# E B7/F# - E</span>\n<span class=\"ly\">Es in - do - lo - ro</span>\n<span class=\"ly\">G#7/5+ G#7</span>\n<span class=\"cd\">C#m C#m7 C#m7</span>\n<span class=\"ly\">Qué raro que seas tú</span>\n<span class=\"cd\">C#m6 G#m G#m7 G#m7 G#m6</span>\n<span class=\"ly\">Quien me acompañe, soledad,</span>\n<span class=\"ly\">G7/5b F#7/5b Asus2/F#</span>\n<span class=\"ly\">A mí, que nunca supe bien</span>\n<span class=\"ly\">B7Add11 E B7/F# - E</span>\n<span class=\"ly\">Cómo estar solo</span>\n<span class=\"ly\">Soledad</span>\n<span class=\"ly\">Aquí están mis credenciales</span>\n<span class=\"ly\">Vengo llamando a tu puerta</span>\n<span class=\"ly\">Desde hace un tiempo</span>\n<span class=\"ly\">Creo que pasaremos juntos temporales</span>\n<span class=\"ly\">Propongo que tú y yo nos vayamos conociendo</span>\n<span class=\"ly\">Ya pasó</span>\n<span class=\"ly\">Ya he dejado que se empañe</span>\n<span class=\"ly\">La ilusión de que vivir es indoloro</span>\n<span class=\"ly\">Qué raro que seas tú</span>\n<span class=\"ly\">Quien me acompañe, soledad,</span>\n<span class=\"ly\">A mí, que nunca supe bien</span>\n<span class=\"ly\">Cómo estar solo</span>\n<span class=\"ly\">G#7/5 G#7</span>\n<span class=\"cd\">C#m C#m7 C#m7</span>\n<span class=\"ly\">Qué raro que seas tú</span>\n<span class=\"cd\">C#m6 G#m G#m7 G#m7 G#m6</span>\n<span class=\"ly\">Quien me acompañe, soledad,</span>\n<span class=\"ly\">G7/5b F#7/5b Asus2/F#</span>\n<span class=\"ly\">A mí, que nunca supe bien</span>\n<span class=\"ly\">B7Add11 E B7/F# - E</span>\n<span class=\"ly\">Cómo estar solo</span>\n<span class=\"ly\">(B7/F# - E) x4</span>\n<span class=\"ly\">e|-4--7-7---4--7-7-7-7-5-7-4--------</span>\n<span class=\"ly\">B|-5--9-9---5--9-9-9-9-7-9-5--------</span>\n<span class=\"ly\">G|----------------------------------</span>\n<span class=\"ly\">D|----------------------------------</span>\n<span class=\"ly\">A|----------------------------------</span>\n<span class=\"ly\">E|----------------------------------</span>", "note": null, "set_id": "set3", "set_label": "Subida media"}, {"num": 14, "title": "Andalucía", "artist": "kanka", "url": "https://www.cifraclub.com/el-kanka/andalucia/", "content": "<span class=\"ly\">(LAm7, SOL7, FA7, MI7) x2 REm7 (003434)</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La de las callejas, estrechas y blancas</span>\n<span class=\"cd\">FA7 MI7</span>\n<span class=\"ly\">La que cuando pena, se pone a cantar</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La de la Alameda, y la de la Alhambra</span>\n<span class=\"cd\">FA7 MI7</span>\n<span class=\"ly\">La de pedid tierra, pedid libertad</span>\n<span class=\"cd\">LAm7 SOL</span>\n<span class=\"ly\">La de Machado y Camaron, la del compas por derecho</span>\n<span class=\"ly\">FA7 SIm7/5 FA7 MI7</span>\n<span class=\"ly\">Y la de partirse el pecho, porque sobra corazon</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La de levante y poniente, la que se salta las leyes</span>\n<span class=\"ly\">FA7 SIm7/5 FA7 MI7</span>\n<span class=\"ly\">La de la gente corriente, que tiene sangre de reyes</span>\n<span class=\"cd\">LAmaj7 LA7* SIm7 MI7</span>\n<span class=\"ly\">La que revive a la poesía en cuanto el dia se muere</span>\n<span class=\"ly\">Sim7 Mi7 LA7maj Re (004545)</span>\n<span class=\"ly\">A su ventana me asomo y su alegría me hiere</span>\n<span class=\"cd\">REm7 LAmaj7 MI7 LAmaj7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucía te quiere</span>\n<span class=\"cd\">REm7 LAmaj7 MI7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucía</span>\n<span class=\"cd\">LAm7, SOL7, FA7, MI7</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La de la Mezquita, y la del espeto</span>\n<span class=\"cd\">FA7 MI7</span>\n<span class=\"ly\">La de la barquita, entre el sol y el mar</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La de la aceituna, y el aceitunero</span>\n<span class=\"cd\">FA7 MI7</span>\n<span class=\"ly\">La que por febrero, huele a carnaval</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La que Picasso describio, y con la que Lorca pinto</span>\n<span class=\"ly\">FA7 SIm7/5 FA7 MI7</span>\n<span class=\"ly\">Velazquez, Paco y Alberti, Carlos Cano y Marisol</span>\n<span class=\"cd\">LAm7 SOL7</span>\n<span class=\"ly\">La surrealista mas real, la del amargo salero</span>\n<span class=\"ly\">FA7 SIm7/5 FA7 MI7</span>\n<span class=\"ly\">Elegante sin arreglar, millonaria sin dinero</span>\n<span class=\"cd\">LAmaj7 LA7* SIm7 MI7</span>\n<span class=\"ly\">La que revive a la poesía en cuanto el dia se muere</span>\n<span class=\"ly\">Sim7 Mi7 LA7maj Re (004545)</span>\n<span class=\"ly\">A su ventana me asomo y su alegría me hiere</span>\n<span class=\"cd\">REm7 LAmaj7 MI7 LAmaj7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucía te quiere</span>\n<span class=\"cd\">REm7 LAmaj7 MI7 LAmaj7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucíiiia</span>\n<span class=\"cd\">REm7 LAmaj7 MI7 LAmaj7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucía te quiere</span>\n<span class=\"cd\">REm7 LAmaj7 MI7</span>\n<span class=\"ly\">Nadie te va a querer como Andalucía</span>\n<span class=\"ly\">Lam7, SOL7, FA7, MI7 Rem7 (003434)</span>", "note": null, "set_id": "set3", "set_label": "Subida media"}, {"num": 15, "title": "Milonga del moro judío", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/milonga_del_moro_judio-2.shtml", "content": "<span class=\"cd\">MI</span>\n<span class=\"ly\">Por cada muro un lamento</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">en Jerusalén la dorada</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">y mil vidas malgastadas</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">por cada mandamiento.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">Yo soy polvo de tu viento</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">y aunque sangro de tu herida</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">y cada piedra querida</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">guarda mi amor más profundo,</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">no hay una piedra en el mundo</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">que valga lo que una vida.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">Yo soy un moro judío</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">que vive con los cristianos,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">ni cuales son mis hermanos.</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">ni cuales son mis hermanos</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">No hay muerto que no me duela,</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">no hay un bando ganador,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">no hay nada más que dolor</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">y otra vida que se vuela.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">La guerra es muy mala escuela</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">no importa el disfraz que viste,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">perdonen que no me aliste</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">bajo ninguna bandera,</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">vale más cualquier quimera</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">que un trozo de tela triste.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">Yo soy un moro judío</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">que vive con los cristianos,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">ni cuales son mis hermanos.</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">ni cuales son mis hermanos</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">Y a nadie le dí permiso</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">para matar en mi nombre,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">un hombre no es más que un hombre</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">y si hay Dios, así lo quiso.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">El mismo suelo que piso</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">seguirá, yo me habré ido;</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">rumbo también del olvido</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">no hay doctrina que no vaya,</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">y no hay pueblo que no se haya</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">creído el pueblo elegido.</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">Yo soy un moro judío</span>\n<span class=\"cd\">DO#m FA#m</span>\n<span class=\"ly\">que vive con los cristianos,</span>\n<span class=\"cd\">SI7</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">MI</span>\n<span class=\"ly\">ni cuales son mis hermanos.</span>\n<span class=\"cd\">LAm SOL</span>\n<span class=\"ly\">no sé que Dios es el mío</span>\n<span class=\"cd\">SI7 MI</span>\n<span class=\"ly\">ni cuales son mis hermanos</span>\n<span class=\"lbl\">Con cejila en el segundo traste es así</span>\n<span class=\"cd\">MI = RE</span>\n<span class=\"cd\">DO#m = SIm</span>\n<span class=\"cd\">FA#m = MIm</span>\n<span class=\"cd\">SI7 = LA7</span>\n<span class=\"cd\">LAm = SOLm</span>\n<span class=\"cd\">SOL = FA</span>", "note": null, "set_id": "set3", "set_label": "Subida media"}, {"num": 16, "title": "Universos paralelos", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/universos_paralelos-2.shtml", "content": "<span class=\"lbl\">INTRO: Cmaj7 Bm7 (x3) Em7 A7/13</span>\n<span class=\"cd\">Cmaj7 Bm7</span>\n<span class=\"ly\">Mi anhelo no está mi anhelo se fue detrás de ti siguiéndote,</span>\n<span class=\"cd\">Am7 Gmaj7 G7</span>\n<span class=\"ly\">Por la avenida</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Ha vuelto a pasar</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Mi anhelo volvió a tomar su propia decisión C»Do</span>\n<span class=\"cd\">Am7 Gmaj7 G7</span>\n<span class=\"ly\">Independiente de la mía</span>\n<span class=\"cd\">Cmaj7 Bm7 Am7</span>\n<span class=\"ly\">Que le voy hacerse trata de ti y en eso el y yo ya lo sabes</span>\n<span class=\"cd\">Gmaj7 G7</span>\n<span class=\"ly\">Opinamos diferente.</span>\n<span class=\"cd\">Cmaj7 Bm7</span>\n<span class=\"ly\">Yo contigo mantengo las distancias,</span>\n<span class=\"cd\">Am7 Cm6</span>\n<span class=\"ly\">Mi anhelo las rompe, alegremente</span>\n<span class=\"cd\">Cmaj7 Bm7 Am7 Gmaj7 G7</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">No ves que yo no sé qué hacer</span>\n<span class=\"ly\">Bm7 Em7 A7/13</span>\n<span class=\"ly\">Con mis dos universos paralelos</span>\n<span class=\"lbl\">INTER: Cmaj7 - Bm7 (x2)</span>\n<span class=\"ly\">Mi anhelo no está mi anhelo se fue detrás de ti siguiéndote(cid:0)</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo(cid:0)</span>\n<span class=\"cd\">Cmaj7 Bm7</span>\n<span class=\"ly\">Colapso seguro que colapso</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Cada vez que chocamos un vacío inmediato</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">De esta falta de gravedad</span>\n<span class=\"ly\">Como un cuerpo flotando en soledad</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Y aquí tu efecto gravitatorio</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Deje girando un desorden notorio</span>\n<span class=\"cd\">Em7</span>\n<span class=\"ly\">En mi universo equidistante</span>\n<span class=\"ly\">A7/13</span>\n<span class=\"ly\">Donde mi amor en órbita cae</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Caen estrellas,</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Caen las estrellas completas el cosmos perdido</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">Que busca tu huella</span>\n<span class=\"cd\">Bm7 Cmaj7</span>\n<span class=\"ly\">De esta lazo satelital de esta fuerza universal</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">Voy un paso adelante un golpe seguro y un beso distante</span>\n<span class=\"cd\">Em7</span>\n<span class=\"ly\">Yo te quiero mi amor de manera de importante</span>\n<span class=\"ly\">A7/13</span>\n<span class=\"ly\">Y mi puesto va vigilante</span>\n<span class=\"ly\">Cmaj7 Bm7 Am7 G7/9</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo</span>\n<span class=\"ly\">Llévate del aire el perfume de tu pelo</span>\n<span class=\"cd\">Cmaj7</span>\n<span class=\"ly\">No ves que yo no sé qué hacer</span>\n<span class=\"ly\">Bm7 Em7 A7/13</span>\n<span class=\"ly\">Con mis dos universos paralelos.</span>", "note": null, "set_id": "set4", "set_label": "Bajada 2 — Recogimiento"}, {"num": 17, "title": "Lo mal que estoy (reprise)", "artist": "kanka", "url": "https://www.cifraclub.com/el-kanka/lo-mal-que-estoy/", "content": "<span class=\"ly\">Lo mal que Estoy y lo poco que me Quejo</span>\n<span class=\"lbl\">Acordes:</span>\n<span class=\"cd\">Am - B7 - Em</span>\n<span class=\"lbl\">Variante de cada estrofa.</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">Siempre me levanto con el pie mirando al suelo.</span>\n<span class=\"cd\">Am B7 Em</span>\n<span class=\"ly\">La voz muda .. me saluda desde lejos,</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"ly\">me regala su silencio .. pero yo me hago el sueco ..</span>\n<span class=\"cd\">Am Em B7 Em</span>\n<span class=\"ly\">mirándome en el espejo.</span>\n<span class=\"ly\">Y el espejo me devuelve su reflejo sin el mío,</span>\n<span class=\"ly\">yo lo asumo y sigo.. pero no me fío.</span>\n<span class=\"ly\">Me autodiagnostico sin un éxito mínimo,</span>\n<span class=\"ly\">así que me deprimo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Tengo el alma en cuarentena .. y roto el cuerpo.</span>\n<span class=\"ly\">¡Qué dolor, qué pena .. y qué tormento!</span>\n<span class=\"ly\">Salgo a las aceras .. el andar desafinado.</span>\n<span class=\"ly\">La maleta llena de cantos rodados.</span>\n<span class=\"ly\">La sonrisa boca abajo de subir tanta escalera ..</span>\n<span class=\"ly\">sin llegar a ningún lado.</span>\n<span class=\"ly\">Y la historia me critica porque siempre estoy penando.</span>\n<span class=\"ly\">Y yo le digo: Pobre de aquel que oculta su llanto</span>\n<span class=\"ly\">Un ladrillo no sabe llorar ..</span>\n<span class=\"ly\">pero tampoco lleva bien el compás.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Lo mal que estoy .. y lo poco que me quejo.</span>\n<span class=\"ly\">Tengo el alma en cuarentena .. y roto el cuerpo.</span>\n<span class=\"ly\">¡Qué dolor, qué pena .. y qué tormento!</span>\n<span class=\"ly\">Y cómo me duele la vida entera ..</span>\n<span class=\"ly\">Y el médico me ha dicho que ponga en entredicho</span>\n<span class=\"ly\">la verdad más verdadera, que llegue tarde al nicho ..</span>\n<span class=\"ly\">y que a cada dolor nuevo .. le busque un placebo.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">A mi burro, a mi burro le duele el amor ..</span>\n<span class=\"ly\">porque nadie le quiere, sólo le quiero yo.</span>\n<span class=\"ly\">Y a mí la pena me saluda cuando más me estoy riendo,</span>\n<span class=\"ly\">de remiendos tengo lleno el corazón.</span>\n<span class=\"ly\">Chin pon ..!</span>", "note": null, "set_id": "set4", "set_label": "Bajada 2 — Recogimiento"}, {"num": 18, "title": "La trama y el desenlace", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/la_trama_y_el_desenlace.shtml", "content": "<span class=\"ly\">Jorge Drexler jdre0671</span>\n<span class=\"lbl\">Enviado por JOSE</span>\n<span class=\"ly\">Amar la Trama [2010]</span>\n<span class=\"ly\">Con estos acordes la toca Drexler en directo.</span>\n<span class=\"lbl\">Intro: Bm/D6/G9/F#m/B7/Em/A7/Em/A7/D9/D7/GM/F#m</span>\n<span class=\"cd\">Bm* F#m Em F#m</span>\n<span class=\"ly\">Camino por Madrid en tu compañía,</span>\n<span class=\"cd\">Bm*</span>\n<span class=\"ly\">Mi mano en tu cintura,</span>\n<span class=\"cd\">F#m Em F#m</span>\n<span class=\"ly\">Copiando a tu mano en la cintura mía.</span>\n<span class=\"ly\">Bm* F#m C»Do</span>\n<span class=\"ly\">A paso lento, como bostezando,</span>\n<span class=\"cd\">Em F#m</span>\n<span class=\"ly\">Como quién besa el barrio al irlo pisando,</span>\n<span class=\"cd\">Bm* F#m</span>\n<span class=\"ly\">Como quién sabe que cuenta con la tarde entera,</span>\n<span class=\"cd\">Em F#m</span>\n<span class=\"ly\">Sin nada más que hacer que acariciar aceras.</span>\n<span class=\"cd\">Bm D6 G9</span>\n<span class=\"ly\">Y sin planearlo tú acaso,</span>\n<span class=\"cd\">F#m B7 Em</span>\n<span class=\"ly\">Como quién sin quererlo va y lo hace,</span>\n<span class=\"cd\">A7</span>\n<span class=\"ly\">Te vi cambiar tu paso,</span>\n<span class=\"cd\">D9 D7 G</span>\n<span class=\"ly\">Hasta ponerlo en fase,</span>\n<span class=\"cd\">F#m B7 Em A7</span>\n<span class=\"ly\">En la misma fase que mi propio paso.</span>\n<span class=\"cd\">Bm D6 G9</span>\n<span class=\"ly\">Ir y venir, seguir y guiar, dar y tener,</span>\n<span class=\"cd\">F#m B7 Em A7</span>\n<span class=\"ly\">Entrar y salir de fase.</span>\n<span class=\"cd\">Em A7 Em A7</span>\n<span class=\"ly\">Amar la trama más que al desenlace,</span>\n<span class=\"cd\">Em* A6 Em* A6</span>\n<span class=\"ly\">Amar la trama más que al desenlace.</span>\n<span class=\"ly\">Bm*/F#m/Em/F#m x2</span>\n<span class=\"cd\">Bm* F#m2 Em2</span>\n<span class=\"ly\">Fue un salto ínfimo</span>\n<span class=\"cd\">F#m2</span>\n<span class=\"ly\">Disimulado,</span>\n<span class=\"cd\">Bm* F#m2</span>\n<span class=\"ly\">Un mínimo cambio de ritmo apenas,</span>\n<span class=\"cd\">Em2</span>\n<span class=\"ly\">Un paso cambiado,</span>\n<span class=\"cd\">F#m2 Bm* F#m</span>\n<span class=\"ly\">y dos cuerdas que resuenan con un mismo número en distintos lados,</span>\n<span class=\"cd\">Em F#m</span>\n<span class=\"ly\">O el paso exacto de dos soldados,</span>\n<span class=\"ly\">Como dos focos intermitentes,</span>\n<span class=\"ly\">Súbitamente así, sincronizados.</span>\n<span class=\"ly\">Dos paseantes distraídos</span>\n<span class=\"ly\">Han conseguido que el reloj de arena de la pena pare,</span>\n<span class=\"ly\">Que se despedace..</span>\n<span class=\"ly\">Y seguir que el rumbo que el viento trace</span>\n<span class=\"ly\">Ir y venir, seguir y guiar, dar y tener,</span>\n<span class=\"ly\">Entrar y salir de fase.</span>\n<span class=\"ly\">Amar la trama más que al desenlace,</span>\n<span class=\"ly\">Amar la trama más que al desenlace.</span>\n<span class=\"cd\">Bm D6 G9</span>\n<span class=\"ly\">Ir por ahí como en un film de Eric Rohmer</span>\n<span class=\"cd\">F#m B7 Em A7</span>\n<span class=\"ly\">Sin esperar que algo pase.</span>\n<span class=\"cd\">Em* A6 Em*</span>\n<span class=\"ly\">Amar la trama más que al desenlace,</span>\n<span class=\"ly\">Amar la trama más que al desenlace.</span>\n<span class=\"ly\">Bm/D6/G9/F#m/B7/Em/A7/Em/</span>\n<span class=\"cd\">A7</span>\n<span class=\"ly\">Te vi cambiar tu paso,</span>\n<span class=\"cd\">D9 D7 G</span>\n<span class=\"ly\">Hasta ponerlo en fase,</span>\n<span class=\"cd\">F#m B7 Em A7</span>\n<span class=\"ly\">En la misma fase que mi propio paso.</span>\n<span class=\"ly\">Bm/D6/G9/F#m/B7/Em/A7</span>\n<span class=\"ly\">Amar la trama más que al desenlace,</span>\n<span class=\"ly\">Amar la trama más que al desenlace.</span>\n<span class=\"cd\">Bm* F#m Em</span>\n<span class=\"ly\">Camino por Madrid en tu compañía.</span>\n<span class=\"ly\">Enviada por Joserra.</span>\n<span class=\"ly\">Bm*: 799777 cejilla 7ºtraste</span>\n<span class=\"ly\">Bm: x24432 cejilla 2º traste</span>\n<span class=\"ly\">D6: X04432</span>\n<span class=\"ly\">G9: 3X443X</span>\n<span class=\"ly\">B7: X24242</span>\n<span class=\"ly\">D9: X54530</span>\n<span class=\"ly\">D7: 5545XX</span>\n<span class=\"ly\">Em*: 075000</span>\n<span class=\"ly\">A6: 575675</span>\n<span class=\"ly\">F#m2:x0767x Lo del 2 es para diferenciar esta posición de la</span>\n<span class=\"ly\">Em2: 0x545x anterior.</span>", "note": null, "set_id": "set4", "set_label": "Bajada 2 — Recogimiento"}, {"num": 19, "title": "Sí que puedes", "artist": "kanka", "url": "https://www.cifraclub.com/el-kanka/si-que-puedes/", "content": "<span class=\"ly\">CAPO en el traste 8. Los nombres de los acordes están relativos al capo</span>\n<span class=\"lbl\">Intro y versos: A Amaj7 A7 D Dm A B7 E</span>\n<span class=\"lbl\">Estribillo: F#m A D E</span>\n<span class=\"lbl\">Outro: F#m E F#m E F#m E D E</span>\n<span class=\"cd\">A Amaj7</span>\n<span class=\"ly\">Cógelo, ve por él</span>\n<span class=\"cd\">A7 D</span>\n<span class=\"ly\">Suéltate, inténtalo</span>\n<span class=\"cd\">Dm A</span>\n<span class=\"ly\">Sírvete, agárralo</span>\n<span class=\"cd\">B7 E</span>\n<span class=\"ly\">Mírate, creételo</span>\n<span class=\"cd\">A Amaj7</span>\n<span class=\"ly\">Sal de ahí, afróntalo</span>\n<span class=\"cd\">A7 D</span>\n<span class=\"ly\">Ciérralo, déjalo ir</span>\n<span class=\"cd\">Dm A</span>\n<span class=\"ly\">Di que sí o di que no</span>\n<span class=\"cd\">B7 E</span>\n<span class=\"ly\">Tómalo, confía en ti</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"cd\">A Amaj7</span>\n<span class=\"ly\">Sálvate, exígelo</span>\n<span class=\"cd\">A7 D</span>\n<span class=\"ly\">Cázalo, duro con él</span>\n<span class=\"cd\">Dm A</span>\n<span class=\"ly\">Pruébate y pruébalo</span>\n<span class=\"cd\">B7 E</span>\n<span class=\"ly\">Cámbialo, atrévete</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"cd\">F#m</span>\n<span class=\"ly\">Si puedes virar el rumbo y tirar lo que sobra</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Puedes volver a coleccionar segundos de placer</span>\n<span class=\"cd\">F#m</span>\n<span class=\"ly\">Y estrofas de poéticas palabras y de golfas madrugadas</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Estarás cerca si en vez de mirar al suelo echas a caminar</span>\n<span class=\"cd\">F#m</span>\n<span class=\"ly\">Si puedes alcanzarlo, mira, lo tienes delante</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Puedes dar un paso y otro y otro más, casi lo tienes</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Puedes salir del armario, cogerlo por el mango</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Échale ovarios, no te deseo suerte, no hace falta</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Porque sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"cd\">F#m A</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>\n<span class=\"cd\">D E</span>\n<span class=\"ly\">Porque sí que puedes</span>\n<span class=\"ly\">Sí que puedes, que nadie te diga que no</span>", "note": null, "set_id": "set4", "set_label": "Bajada 2 — Recogimiento"}, {"num": 20, "title": "Volar", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/volar-2.shtml", "content": "<span class=\"ly\">El Kanka knkx0132</span>\n<span class=\"lbl\">Enviado por Carlos</span>\n<span class=\"ly\">Letra y Acordes El día de Suerte de juan Gomez [2014]</span>\n<span class=\"ly\">EL KANKA PONE CEJILLA EN PRIMER TRASTE</span>\n<span class=\"cd\">Am B7</span>\n<span class=\"ly\">Volar lo que se dice volar</span>\n<span class=\"cd\">E7 Bdim</span>\n<span class=\"ly\">Volar volar volar</span>\n<span class=\"cd\">Am F7 E7</span>\n<span class=\"ly\">No vuelo</span>\n<span class=\"cd\">Am B7</span>\n<span class=\"ly\">Volar lo que se dice volar C»Do</span>\n<span class=\"cd\">E7 Bdim</span>\n<span class=\"ly\">Volar volar volar</span>\n<span class=\"cd\">Am A7</span>\n<span class=\"ly\">No vuelo, pero</span>\n<span class=\"cd\">Dm</span>\n<span class=\"ly\">Desde que cambie el palacio por el callejón</span>\n<span class=\"cd\">Am</span>\n<span class=\"ly\">Desde que rompí todas las hojas del guion</span>\n<span class=\"ly\">E7 (E--4--) Am A7 B----3---5--</span>\n<span class=\"ly\">Si quieres buscarme mira hacia el cielo G----4---6--</span>\n<span class=\"cd\">Dm</span>\n<span class=\"ly\">Pero desde que me deje el bolso en la estación</span>\n<span class=\"cd\">Am</span>\n<span class=\"ly\">Y le pegue fuego a la tele del salón</span>\n<span class=\"cd\">B7 E7 Bdim Amaj7 Bm7 E7</span>\n<span class=\"ly\">Te prometo hermano que mis suelas no tocan el suelo</span>\n<span class=\"cd\">Amaj7 Bm7</span>\n<span class=\"ly\">Solté todo lo que tenía y fui feliz</span>\n<span class=\"cd\">E7 Bdim Amaj7 E7 A7</span>\n<span class=\"ly\">Solté las riendas y deje pasar</span>\n<span class=\"cd\">Dmaj7 Dm</span>\n<span class=\"ly\">No me ata nada aquí</span>\n<span class=\"cd\">Amaj7 B7</span>\n<span class=\"ly\">No hay nada que guardar</span>\n<span class=\"cd\">E7 Bdim Am</span>\n<span class=\"ly\">así que cojo impulso y a volar</span>\n<span class=\"cd\">B7</span>\n<span class=\"ly\">...lo que se dice volar</span>\n<span class=\"cd\">E7 Bdim</span>\n<span class=\"ly\">Volar volar volar</span>\n<span class=\"cd\">Am F7 E7</span>\n<span class=\"ly\">No vuelo</span>\n<span class=\"cd\">Am B7</span>\n<span class=\"ly\">Volar lo que se dice volar,volar</span>\n<span class=\"cd\">E7 Bdim</span>\n<span class=\"ly\">Volar volar volar</span>\n<span class=\"cd\">Am A7</span>\n<span class=\"ly\">No vuelo, pero</span>\n<span class=\"cd\">Dm</span>\n<span class=\"ly\">desde que tiré las llaves ya no quiero entrar</span>\n<span class=\"cd\">Am</span>\n<span class=\"ly\">Desde que quemé las naves y aprendí a nadar</span>\n<span class=\"ly\">E7 (E--4--) Am A7 B----3---5--</span>\n<span class=\"ly\">Si quieres buscarme mira para el cielo G----4---6--</span>\n<span class=\"cd\">Dm</span>\n<span class=\"ly\">Pero desde que dejé el teléfono en un bar</span>\n<span class=\"cd\">Am</span>\n<span class=\"ly\">Desde que no tengo nada parecido a un plan</span>\n<span class=\"cd\">B7 E7 Bdim Amaj7 Bm7 E7</span>\n<span class=\"ly\">Te prometo hermano que mis suelas no tocan el suelo</span>\n<span class=\"cd\">Amaj7 Bm7</span>\n<span class=\"ly\">Solté todo lo que tenía y fui feliz</span>\n<span class=\"cd\">E7 Bdim Amaj7 E7 A7</span>\n<span class=\"ly\">Solté las riendas y deje pasar</span>\n<span class=\"cd\">Dmaj7 Dm</span>\n<span class=\"ly\">No me ata nada aquí</span>\n<span class=\"cd\">Amaj7 B7</span>\n<span class=\"ly\">No hay nada que guardar</span>\n<span class=\"cd\">E7 Bdim Am G F7 E7</span>\n<span class=\"ly\">así que cojo impulso y a volaaaaar</span>\n<span class=\"cd\">Am G F7 E7 Am G F7 E7</span>\n<span class=\"ly\">volaaaaaaar Lo que se dice volar</span>\n<span class=\"ly\">Am G F7 E-----0-2-4-5 Am6</span>\n<span class=\"ly\">E-A-D-G-B-E</span>\n<span class=\"ly\">B7 0-2-4-2-4-2</span>\n<span class=\"ly\">E7 0-2-0-1-3-0</span>\n<span class=\"ly\">Bdim 0-2-3-1-3-0</span>\n<span class=\"ly\">A7 0-0-2-0-2-0</span>\n<span class=\"ly\">Amaj7 0-0-2-1-2-0</span>\n<span class=\"ly\">Bm7 0-2-4-2-3-2</span>\n<span class=\"ly\">Dmaj7 0-0-0-2-2-2</span>\n<span class=\"ly\">Am6 0-0-2-2-1-2</span>", "note": "medley", "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": "20b", "title": "Para eso canto", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/para_eso_canto.shtml", "content": "<span class=\"ly\">El Kanka corregir knkx0341</span>\n<span class=\"lbl\">Enviado por Rafael</span>\n<span class=\"ly\">desconocido</span>\n<span class=\"ly\">Créditos al usuario kira que comentó los acordes del vídeo</span>\n<span class=\"ly\">https://www.youtube.com/watch?v=5aOs3KzbW1c</span>\n<span class=\"ly\">CORREGIDA</span>\n<span class=\"lbl\">Acordes:</span>\n<span class=\"ly\">EADGbe</span>\n<span class=\"ly\">Fmaj7 = x33210</span>\n<span class=\"ly\">Cm7/G = 332000</span>\n<span class=\"ly\">Edim7 = xx2323</span>\n<span class=\"ly\">Gdim7 = xx5656</span>\n<span class=\"lbl\">Capo traste en el tercer traste.</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"lbl\">Intro:</span>\n<span class=\"cd\">Dm7 G7 Cm7/G</span>\n<span class=\"ly\">Larararara larararararaia</span>\n<span class=\"cd\">Dm7 E7 Am E7 Am</span>\n<span class=\"ly\">Larararara lara</span>\n<span class=\"lbl\">Estrofas:</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para que el canto deje en bragas al silencio</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Pa´ que en el campo llueva pan, aceite y ajo</span>\n<span class=\"cd\">G7 Cm7/G</span>\n<span class=\"ly\">Para arrojar a la codicia mar adentro</span>\n<span class=\"cd\">Fmaj7 E7</span>\n<span class=\"ly\">Y a los ilustres codiciosos monte abajo</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para que el tiempo no se compre con dinero</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Que solo se toreen las cornadas del hambre</span>\n<span class=\"cd\">G7 Cm7/G</span>\n<span class=\"ly\">Para que el &quot;Puedo&quot; pueda más si quiere el &quot;quiero&quot;</span>\n<span class=\"cd\">Fmaj7 E7</span>\n<span class=\"ly\">Pa´que la chispa del amor nos de calambres.</span>\n<span class=\"lbl\">Estribillo:</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Pa&#x27; que la verdad sea la moneda, ¡ay!</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Y pa&#x27; que los besos curen el llanto</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Pa&#x27; que las canciones sean las banderas, ¡ay!</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto,</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto, iepai,</span>\n<span class=\"lbl\">Intro</span>\n<span class=\"lbl\">Estrofas:</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para que nos enseñen desde bien pequeños</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">A conocernos y a saber lo que sentimos</span>\n<span class=\"cd\">G7 Cm7/G</span>\n<span class=\"ly\">En vez de andar encasillando nuestros sueños</span>\n<span class=\"cd\">Fmaj7 E7</span>\n<span class=\"ly\">Y limitando a uno todos los caminos</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para que todos ocupemos esta tierra</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Con la única frontera de un mundo de todos</span>\n<span class=\"cd\">G7 Cm7/G</span>\n<span class=\"ly\">Que solo dispare el fusil contra la guerra</span>\n<span class=\"cd\">Fmaj7 E7</span>\n<span class=\"ly\">Pa&#x27; que la guerra caiga sangrando en el lodo</span>\n<span class=\"ly\">Variación del estribillo:</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Pa&#x27; que la verdad sea la moneda, ¡ay!</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Y pa&#x27; que los besos curen el llanto</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Pa&#x27; que las canciones sean las banderas, ¡ay!</span>\n<span class=\"ly\">Dm7 E7 Am Edim7-Gdim7</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto,</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Canto pa&#x27; que no se me vuelva loco, ¡ay!</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Este mundo loco que sufre tanto</span>\n<span class=\"cd\">Dm7 G7 Am</span>\n<span class=\"ly\">Canto por cantar, mire que no es poco, ¡ay!</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto,</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto,</span>\n<span class=\"cd\">Dm7 E7 Am</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaaanto,</span>\n<span class=\"lbl\">Final:</span>\n<span class=\"cd\">Dm7</span>\n<span class=\"ly\">Para eso caaaaaaaaaaaa</span>\n<span class=\"cd\">E7</span>\n<span class=\"ly\">Aaaaaaaaaanto</span>\n<span class=\"ly\">Dm7 Am E7 Am Dm7 Am (E7-E7) Am</span>\n<span class=\"ly\">Oooooooooooooooo</span>", "note": "medley", "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 21, "title": "Guitarra y vos", "artist": "drexler", "url": "https://www.cifraclub.com/jorge-drexler/guitarra-y-vos/", "content": "<span class=\"ly\">Bueno, en si le arreglé todo. Menos una parte de &#x27;el punteito&#x27;,</span>\n<span class=\"ly\">que va solo al final...</span>\n<span class=\"ly\">Ojalá les sirva... saludos</span>\n<span class=\"ly\">DW... ED</span>\n<span class=\"ly\">**********************************************************************</span>\n<span class=\"ly\">MODIFICACION A LA TRANSCRIPCION DE:</span>\n<span class=\"ly\">Agustin Rumayor (d_agus1@yahoo.com)</span>\n<span class=\"ly\">Aunque no te tenga, solo te tengo a tí, Blanca. Y tengo a mi guitarra.</span>\n<span class=\"ly\">***********************************************************************</span>\n<span class=\"lbl\">Intro: Am/G Aadd#9/G (x4)</span>\n<span class=\"cd\">Am/G Aadd#9/G</span>\n<span class=\"ly\">a)¡Que viva la ciencia, que viva la poesía!</span>\n<span class=\"cd\">Am/G Aadd#9/G</span>\n<span class=\"ly\">¡Qué viva siento mi lengua cuando tu lengua está sobre la lengua mía!</span>\n<span class=\"cd\">Am/G</span>\n<span class=\"ly\">El agua está en el barro, el barro en el ladrillo,</span>\n<span class=\"cd\">Aadd#9/G Am/G...</span>\n<span class=\"ly\">el ladrillo está en la pared y en la pared tu fotografía</span>\n<span class=\"ly\">...</span>\n<span class=\"ly\">A)</span>\n<span class=\"ly\">Es cierto que no hay arte sin emoción, y que no hay precisión sin artesanía</span>\n<span class=\"ly\">como tampoco hay guitarras sin tecnología:</span>\n<span class=\"ly\">Tecnología del nylon para las primas,tecnología del metal para el clavijero</span>\n<span class=\"ly\">la prensa, la gubia y el barniz: las herramientas del carpintero</span>\n<span class=\"ly\">El cantautor y su computadora, el pastor y su afeitadora,</span>\n<span class=\"ly\">el despertador que ya está anunciando la aurora</span>\n<span class=\"lbl\">riff</span>\n<span class=\"ly\">y en el telescopio se demora la última estrella</span>\n<span class=\"lbl\">riff riff riff</span>\n<span class=\"ly\">la máquina la hace el hombre... y es lo que el hombre hace con ella</span>\n<span class=\"ly\">a)El arado, la rueda, el molino,</span>\n<span class=\"ly\">la mesa en que apoyo el vaso de vino</span>\n<span class=\"ly\">Las curvas de la motaña rusa,</span>\n<span class=\"ly\">la semicorchea y hasta la semifusa</span>\n<span class=\"ly\">El té, los odenadores y los espejos,</span>\n<span class=\"ly\">los lentes para ver de cerca y de lejos</span>\n<span class=\"ly\">La cucha del perro, la mantequilla,</span>\n<span class=\"ly\">la yerba, el mate y la bombilla</span>\n<span class=\"ly\">B) riff</span>\n<span class=\"ly\">Estás conmigo, estamos cantando a la sombra de nuestra parra</span>\n<span class=\"lbl\">riff</span>\n<span class=\"ly\">Una canción que dice que uno sólo conserva lo que no amarra</span>\n<span class=\"lbl\">riff riff</span>\n<span class=\"ly\">y sin tenerte, te tengo a vos... y tengo a mi guitarra</span>\n<span class=\"lbl\">Estribillo:</span>\n<span class=\"ly\">a)Hay tantas cosas , yo sólo preciso dos:</span>\n<span class=\"ly\">mi guitarra y vos , mi guitarra y vos [x2]</span>\n<span class=\"ly\">a)Hay cines , hay trenes, hay cacerolas,</span>\n<span class=\"ly\">hay fórmulas hasta para describir la espiral de una caracola</span>\n<span class=\"ly\">Hay más: hay tráfico , créditos , cláusulas , salas vip</span>\n<span class=\"ly\">hay cápsulas hipnóticas y tomografías computarizadas</span>\n<span class=\"ly\">Hay condiciones para la constitución de una sociedad limitada,</span>\n<span class=\"ly\">hay biberones, hay obúses, hay tabúes, hay besos, hay hambre, hay sobrepeso</span>\n<span class=\"ly\">Hay curas de sueño y tisanas, hay drogas de diseño</span>\n<span class=\"ly\">y perros adictos a las drogas en las aduanas</span>\n<span class=\"ly\">C) Am/G</span>\n<span class=\"ly\">-Hay manos capaces de fabricar herramientas</span>\n<span class=\"cd\">Aadd#9/G Am/G</span>\n<span class=\"ly\">con las que se hacen máquinas para hacer ordenadores,</span>\n<span class=\"ly\">que a su vez diseñan máquinas</span>\n<span class=\"cd\">Aadd#9/G Am/G Aadd#9/G</span>\n<span class=\"ly\">que hacen herramientas para que las use la mano-</span>\n<span class=\"ly\">B) riff</span>\n<span class=\"ly\">Hay escritas infinitas palabras:</span>\n<span class=\"lbl\">riff riff riff</span>\n<span class=\"ly\">zen... gol... bang... rap... Dios... fin...</span>\n<span class=\"lbl\">Estribillo:</span>\n<span class=\"ly\">A)</span>\n<span class=\"ly\">Hay tantas cosas , yo sólo preciso dos:</span>\n<span class=\"ly\">mi guitarra y vos , mi guitarra y vos [x4]</span>\n<span class=\"lbl\">FINAL riff...</span>\n<span class=\"ly\">e¦----------------------------------|</span>\n<span class=\"ly\">B¦----------------------------------|</span>\n<span class=\"ly\">G¦------2-4-2-----------2--0--------|</span>\n<span class=\"ly\">D¦-2--4---------4--2-2--------4--2--|</span>\n<span class=\"ly\">A¦----------------------------------|</span>\n<span class=\"ly\">E|----------------------------------|</span>\n<span class=\"ly\">ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ</span>\n<span class=\"lbl\">riff:</span>\n<span class=\"ly\">(armonico)</span>\n<span class=\"ly\">e¦------------------¦</span>\n<span class=\"ly\">B¦------------------¦</span>\n<span class=\"ly\">G¦-----(12)---------¦</span>\n<span class=\"ly\">D¦--(12)-------(7)--¦</span>\n<span class=\"ly\">A¦----------(7)-----¦</span>\n<span class=\"ly\">E¦------------------¦</span>\n<span class=\"ly\">|e|B|G|D|A|E|</span>\n<span class=\"ly\">Am/G : |0|0|2|2|3|3|</span>\n<span class=\"ly\">Aadd#9/G: |0|2|2|0|3|3|</span>\n<span class=\"ly\">***********************************************************************</span>\n<span class=\"ly\">Siento que es muy buena la tab y excelente la cancion</span>\n<span class=\"ly\">Saludos!!</span>\n<span class=\"ly\">AgusdeB</span>\n<span class=\"ly\">14/07/05 12:00</span>\n<span class=\"ly\">***********************************************************************</span>\n<span class=\"ly\">Bueno, para los que no saben, &quot;armonico&quot; es cuando tocas un tono</span>\n<span class=\"ly\">pero tocando apenas la cuerda (con la mano izquierda), y soltandola...</span>\n<span class=\"ly\">Suena mejor si tocan con la uña (mano derecha) o una púa.</span>\n<span class=\"ly\">Espero que hayan entendido o si no busquen información sobre esto,</span>\n<span class=\"ly\">es relativamente fácil</span>\n<span class=\"ly\">Suerte, un saludo...</span>\n<span class=\"ly\">DW... ED</span>", "note": null, "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 22, "title": "Qué bello es vivir", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/que_bello_es_vivir.shtml", "content": "<span class=\"ly\">Juan Gómez Canca knkx0041</span>\n<span class=\"lbl\">Enviado por juangu</span>\n<span class=\"ly\">Lo mal que Estoy y lo poco que me Quejo</span>\n<span class=\"ly\">Amigos de lacuerda... seguidores &quot;funknaticos&quot; del Kankautó</span>\n<span class=\"ly\">mas grande ka&#x27;dao esta tierra</span>\n<span class=\"ly\">ojala disfruten con esta &quot;humirde&quot; versión</span>\n<span class=\"ly\">de este temazo der&#x27; genio de Huelin.</span>\n<span class=\"ly\">EL KANKA - QUE BELLO ES VIVIR</span>\n<span class=\"cd\">Bm7 - Bdim7 - Bdim.</span>\n<span class=\"cd\">Amaj7</span>\n<span class=\"ly\">Que bello es vivir</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7</span>\n<span class=\"ly\">C»Do</span>\n<span class=\"ly\">A mi me gusta cada cosa que la vida nos ofrece</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">El placer me reconforta el dolor me fortalece</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7</span>\n<span class=\"ly\">disfruto cada segundo y cada segundo que viene</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">cuando pienso que disfruto mas disfruto(cid:0) es lo que tiene.</span>\n<span class=\"cd\">Bm7 E7(II) Amaj7 Amaj13</span>\n<span class=\"ly\">Y como me gusta recrearme disfrutando de cualquier soplo de aire</span>\n<span class=\"cd\">Bm7 E7(II) Amaj7 Amaj13</span>\n<span class=\"ly\">Y como me alegro de encontrarme tan alegre tan feliz tan despreciable...</span>\n<span class=\"ly\">Bm7/5 E7</span>\n<span class=\"cd\">Amaj7 Amaj7(IV) Amaj7 Amaj7(IV)</span>\n<span class=\"ly\">Que bello es vivir</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7 Bdim.</span>\n<span class=\"ly\">cuando me asomo a la ventana y veo el mundo por la mañana</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">a mi es que se me alegra el alma y tengo que sacar el cava</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7 Bdim.</span>\n<span class=\"ly\">para brindar por esta vida que esta tan bien fabricada</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">y saco también el confeti y voy cantando por mi casa</span>\n<span class=\"cd\">Bm7 E7(II) Amaj13 Amaj7</span>\n<span class=\"ly\">Y como me gusta recrearme disfrutando de cualquier soplo de aire</span>\n<span class=\"cd\">Bm7 E7(II) Amaj13 Amaj7</span>\n<span class=\"ly\">Y como me alegro de encontrarme tan alegre tan feliz tan despreciable</span>\n<span class=\"ly\">Bm7/5 E7</span>\n<span class=\"cd\">Amaj7 Amaj7(IV)</span>\n<span class=\"ly\">Que bello es vivir</span>\n<span class=\"ly\">Amaj7 Amaj7(IV) Bm7 Bm7/5 Bdim.</span>\n<span class=\"ly\">Que lindo es amar yo te quiero a ti, tu me quieres mas</span>\n<span class=\"cd\">Amaj7 Amaj7(IV)</span>\n<span class=\"ly\">Que bello es vivir</span>\n<span class=\"ly\">Amaj7 Amaj7(IV) Bm7 Bm7/5</span>\n<span class=\"ly\">Que lindo es amar yo te quiero a ti, tu me quieres mas [ESTRIBILLO]</span>\n<span class=\"cd\">Amaj7 Amaj13 Amaj7 Amaj13 E7</span>\n<span class=\"ly\">A cantar LA ra LA ra(cid:0) la ra la ra(cid:0) reir ja ja je ji ja ja je ji</span>\n<span class=\"cd\">Amaj7 Amaj13 Amaj7 Amaj13 Amaj7</span>\n<span class=\"ly\">A bailar(cid:0) Muévelo pa(cid:0)qui, muévelo pa(cid:0)lla(cid:0)</span>\n<span class=\"cd\">E7 Bdim.</span>\n<span class=\"ly\">Aplaudir a dos manos milagro, alegría, por dios ni yo mismo me aguanto</span>\n<span class=\"cd\">Amaj7 Amaj7(IV) Amaj7 Amaj7(IV)</span>\n<span class=\"ly\">Pero(cid:0) que bello es vivir</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7 Bdim.</span>\n<span class=\"ly\">Aunque esta vida me maltrate de la forma mas espeluznante</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">yo saldré cada dia a la calle con mi sonrisa más grande</span>\n<span class=\"cd\">Bm7 E7 Bm7 E7 Bdim.</span>\n<span class=\"ly\">y aunque nadie me soporte esta felicidad absurda</span>\n<span class=\"cd\">Amaj7 A6 Amaj7 A6</span>\n<span class=\"ly\">y me echen de los bares y hasta mis padres me huyan</span>\n<span class=\"cd\">Bm7 E7(II) Amaj13 Amaj7</span>\n<span class=\"ly\">no es una rara enfermedad mental que todavía no se ha diagnosticado</span>\n<span class=\"cd\">Bm7 E7(II) Amaj13 Amaj7</span>\n<span class=\"ly\">y no es el efecto de alguna cosita que yo sin querer me haya fumado</span>\n<span class=\"ly\">Bm7/5 E7</span>\n<span class=\"lbl\">ESTRIBILLO</span>\n<span class=\"cd\">Amaj7 Amaj13 Amaj7 Amaj13 E7</span>\n<span class=\"ly\">A cantar LA ra LA ra(cid:0) la ra la ra(cid:0) reir ja ja je ji ja ja je ji</span>\n<span class=\"cd\">Amaj7 Amaj13 Amaj7 Amaj13 Amaj7</span>\n<span class=\"ly\">A bailar(cid:0) Muévelo pa(cid:0)qui, muévelo pa(cid:0)lla(cid:0)</span>\n<span class=\"cd\">E7 Amaj7</span>\n<span class=\"ly\">Aplaudir a dos manos milagro, alegría, por dios ni yo mismo me aguanto</span>\n<span class=\"cd\">Amaj7 E7</span>\n<span class=\"ly\">la ra la ra(cid:0) la ra la ra(cid:0) ja ja je ji ja ja je ji</span>\n<span class=\"cd\">Amaj7</span>\n<span class=\"ly\">la ra la ra(cid:0) la ra la ra(cid:0)</span>\n<span class=\"cd\">E7</span>\n<span class=\"ly\">Viva y bravo (cid:0)alegrida(cid:0) ilusión que bonico es vivir</span>\n<span class=\"ly\">si se os nota en la cara que estáis deseando</span>\n<span class=\"cd\">Bdim.</span>\n<span class=\"ly\">que acabe para hincharos de a(cid:0)</span>\n<span class=\"cd\">Amaj7</span>\n<span class=\"ly\">para hincharos de aplaudir.</span>\n<span class=\"lbl\">Acordes.</span>\n<span class=\"ly\">EADGbe EADGbe</span>\n<span class=\"ly\">A6 002222 Bm7/5+ 023230</span>\n<span class=\"ly\">Amaj7 002120 Bdim 023130</span>\n<span class=\"ly\">Amaj7(IV) 007654 Bdim7 023131</span>\n<span class=\"ly\">Amaj13 002122 E7 020130</span>\n<span class=\"ly\">Bm7 224232 E7(II) 222434</span>\n<span class=\"ly\">Bm7+ 224234</span>", "note": null, "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 23, "title": "Al otro lado del río", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/al_otro_lado_del_rio-3.shtml", "content": "<span class=\"lbl\">Intro: G9_G7/9_G9_G7/9_G7/10_G7/9</span>\n<span class=\"cd\">(bis)</span>\n<span class=\"ly\">G9 G7/9</span>\n<span class=\"ly\">Clavo mi remo en el agua</span>\n<span class=\"cd\">G9 D9/F# Em7</span>\n<span class=\"ly\">Llevo tu remo en el mío</span>\n<span class=\"ly\">Cm7 F7/13</span>\n<span class=\"ly\">Creo que he visto una luz</span>\n<span class=\"ly\">Am7 D7/b9 G9 (G7/9_G9_G7/9) C»Do</span>\n<span class=\"ly\">al otro lado del río</span>\n<span class=\"ly\">El día le irá pudiendo</span>\n<span class=\"ly\">poco a poco al frío</span>\n<span class=\"ly\">Creo que he visto una luz</span>\n<span class=\"ly\">(G7/9_G9_Fmj7/G_Fmj7/b5/G)</span>\n<span class=\"ly\">al otro lado del río</span>\n<span class=\"ly\">Cmj7 D/Bm</span>\n<span class=\"ly\">Sobre todo creo que</span>\n<span class=\"ly\">Em7 A7/11 A7</span>\n<span class=\"ly\">no todo está perdido</span>\n<span class=\"ly\">Am7 D7/9</span>\n<span class=\"ly\">Tanta lágrima, tanta lágrima</span>\n<span class=\"ly\">Am7 Cm7 F7/13</span>\n<span class=\"ly\">y yo, soy un vaso vacío</span>\n<span class=\"cd\">Cm7 F7</span>\n<span class=\"ly\">Oigo una voz que me llama</span>\n<span class=\"cd\">G9</span>\n<span class=\"ly\">casi un suspiro</span>\n<span class=\"ly\">G9 G7/9 G9 G7/9 G7/10 G7/9</span>\n<span class=\"ly\">Rema, rema, rema</span>\n<span class=\"ly\">G9 G7/9 G9 G7/9 G7/10 G7/9</span>\n<span class=\"ly\">Rema, rema, rema</span>\n<span class=\"ly\">G/D (como final mantener G/D)</span>\n<span class=\"ly\">En esta orilla del mundo</span>\n<span class=\"ly\">lo que no es presa es baldío</span>\n<span class=\"ly\">Cm7 F7/13</span>\n<span class=\"ly\">Creo que he visto una luz</span>\n<span class=\"ly\">Am7 D7/b9 G9 (G7/9_G9_G7/9)</span>\n<span class=\"ly\">al otro lado del río</span>\n<span class=\"cd\">G9 D/F# Em B7/Eb</span>\n<span class=\"ly\">Yo muy serio voy remando</span>\n<span class=\"cd\">Em Em7 Em6</span>\n<span class=\"ly\">muy adentro sonrío</span>\n<span class=\"ly\">Cm7 F7/13</span>\n<span class=\"ly\">Creo que he visto una luz</span>\n<span class=\"ly\">Am7 D7/b9 G9 (G7/9_G9_Fmj7/G_Fmj7/b5/G)</span>\n<span class=\"ly\">al otro lado del río</span>\n<span class=\"ly\">Sobre todo creo que(cid:0)</span>\n<span class=\"ly\">Etc. (Ya no hay elementos nuevos</span>\n<span class=\"lbl\">solo repeticiones)</span>\n<span class=\"ly\">Amig@s, para una canción tan bella puse mi mejor empeño,</span>\n<span class=\"ly\">creo que no falta ningún acorde, ponte pilas y te sonará igualita,</span>\n<span class=\"ly\">eso si, es solo para valientes. (aquí van)</span>\n<span class=\"ly\">G9 3x0200</span>\n<span class=\"ly\">G7/9 3x0220</span>\n<span class=\"ly\">G7/10 3x0230</span>\n<span class=\"ly\">D9/F# 2x0230</span>\n<span class=\"ly\">F7/13 131231</span>\n<span class=\"ly\">D7/b9 x5454x</span>\n<span class=\"ly\">Fmj7/G 303210</span>\n<span class=\"ly\">Fmj//b5/G 303200</span>\n<span class=\"ly\">Cmj7 x32000</span>\n<span class=\"ly\">D/Bm x20232</span>\n<span class=\"ly\">A7/11 x02030</span>\n<span class=\"ly\">D7/9 x54550</span>\n<span class=\"ly\">G/D 35500x</span>\n<span class=\"ly\">B7/E xx1202</span>\n<span class=\"ly\">Em6 042000</span>", "note": null, "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 24, "title": "Por tu olor", "artist": "duo", "url": "https://acordes.lacuerda.net/kanka/por_tu_olor-3.shtml", "content": "<span class=\"ly\">(Acordes sacados del video que hace con Claudia Bardagí)</span>\n<span class=\"ly\">CMaj7/G=33200X</span>\n<span class=\"ly\">D9=X5455X</span>\n<span class=\"ly\">Ab13m=4X455X</span>\n<span class=\"ly\">G9sus4=3X321X</span>\n<span class=\"ly\">G9m=3X310X</span>\n<span class=\"ly\">Db°7=X4535X</span>\n<span class=\"ly\">E°7=X7868X</span>\n<span class=\"ly\">Am11=5X553X</span>\n<span class=\"ly\">D7=X5453X</span>\n<span class=\"ly\">Fm7=131111</span>\n<span class=\"ly\">BbMaj7/F=113131</span>\n<span class=\"ly\">A13m=5X566X</span>\n<span class=\"ly\">G7=32300X</span>\n<span class=\"ly\">Dm9=X5355X C»Do</span>\n<span class=\"ly\">Dm9/A=5X355X</span>\n<span class=\"ly\">A9m=X0232X</span>\n<span class=\"lbl\">Riff 1</span>\n<span class=\"ly\">G:-------0h2p0-------------</span>\n<span class=\"ly\">D:--0h2---------2p0--------</span>\n<span class=\"lbl\">Riff 2</span>\n<span class=\"ly\">D:-----2p0-----------------</span>\n<span class=\"ly\">A:----------2-3------------</span>\n<span class=\"ly\">E:--3----------------------</span>\n<span class=\"lbl\">Intro x2: Cmaj7/G - D9 - Ab13m - G9sus4 - G9m</span>\n<span class=\"cd\">Cmaj7/G D9</span>\n<span class=\"ly\">Suéltate las trenzas cuando quieras</span>\n<span class=\"ly\">Ab13m G9sus4 G9m Cmaj7/G</span>\n<span class=\"ly\">Venme a ver con la cara lavada (Riff 1)</span>\n<span class=\"cd\">Cmaj7/G D9</span>\n<span class=\"ly\">No pierdas el tiempo en las maneras</span>\n<span class=\"ly\">Ab13m G9sus4 G9m Cmaj7/G</span>\n<span class=\"ly\">Que el rimel no hace a la mirada</span>\n<span class=\"cd\">Db°7 E°7 Am11 D7</span>\n<span class=\"ly\">Te prefiero así, sin maquillaje</span>\n<span class=\"cd\">Fm7 Bbmaj7/F Cmaj7/G</span>\n<span class=\"ly\">Despojada de bisutería</span>\n<span class=\"ly\">Cmaj7/G A13m D9 Ab13m G7 Cmaj7/G</span>\n<span class=\"ly\">Sin trampa, sin trucos y sin tra je</span>\n<span class=\"cd\">Dm9 Dm9/A G7 Cmaj7/G</span>\n<span class=\"ly\">No me interesa el mostrador del que la gente presume</span>\n<span class=\"ly\">A9m Fm7 G7 Cmaj7/G</span>\n<span class=\"ly\">Estoy contigo por tu olor no por tu perfume (Riff 2) [X2]</span>\n<span class=\"cd\">Cmaj7/G D9</span>\n<span class=\"ly\">Nada de espejismos ilusorios</span>\n<span class=\"ly\">Ab13m G9sus4 G9m Cmaj7/G</span>\n<span class=\"ly\">Nada de intentar disimu larte (Riff 1)</span>\n<span class=\"cd\">Cmaj7/G D9</span>\n<span class=\"ly\">No se crea en los laboratorios, no</span>\n<span class=\"ly\">Ab13m G9sus4 G9m Cmaj7/G</span>\n<span class=\"ly\">Tu belleza es un arte aparte</span>\n<span class=\"cd\">Db°7 E°7 Am11 D7</span>\n<span class=\"ly\">No es buen cazador gato con guantes</span>\n<span class=\"cd\">Fm7 Bbmaj7/F Cmaj7/G</span>\n<span class=\"ly\">Te prefiero libre de armaduras</span>\n<span class=\"ly\">Cmaj7/G A13m D9 Ab13m G7 Cmaj7/G</span>\n<span class=\"ly\">Sin colorantes ni conser van tes</span>\n<span class=\"cd\">Dm9 Dm9/A G7 Cmaj7/G</span>\n<span class=\"ly\">No me interesa el mostrador del que la gente presume</span>\n<span class=\"ly\">A9m Fm7 G7 Cmaj7/G</span>\n<span class=\"ly\">Estoy contigo por tu olor no por tu perfume (Riff 2) [X2]</span>\n<span class=\"ly\">___</span>", "note": null, "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 25, "title": "Todo se transforma", "artist": "drexler", "url": "https://acordes.lacuerda.net/jorge_drexler/todo_se_transforma-3.shtml", "content": "<span class=\"ly\">___</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">Tu beso se hizo calor,</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">luego el calor, movimiento,</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">luego gota de sudor</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">que se hizo vapor y luego viento</span>\n<span class=\"cd\">B#m7. B7</span>\n<span class=\"ly\">que en un rincón de La Rioja C»Do</span>\n<span class=\"cd\">B#m7 B7</span>\n<span class=\"ly\">movió el aspa de un molino</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">mientras se pisaba el vino</span>\n<span class=\"cd\">A6. F#m7</span>\n<span class=\"ly\">que bebió tu boca roja.</span>\n<span class=\"cd\">A F#m</span>\n<span class=\"ly\">Tu boca roja en la mía,</span>\n<span class=\"cd\">A F#m</span>\n<span class=\"ly\">la copa que gira en mi mano,</span>\n<span class=\"cd\">A F#m</span>\n<span class=\"ly\">y mientras el vino caía</span>\n<span class=\"cd\">A F#m</span>\n<span class=\"ly\">supe que de algún lejano rincón</span>\n<span class=\"ly\">Bm7 B7/9</span>\n<span class=\"ly\">de otra galaxia,</span>\n<span class=\"ly\">Bm7 B7/9</span>\n<span class=\"ly\">el amor que me darías,</span>\n<span class=\"cd\">A F#m7</span>\n<span class=\"ly\">transformado, volvería</span>\n<span class=\"ly\">Bm7/5 E</span>\n<span class=\"ly\">un día a darte las gracias.</span>\n<span class=\"cd\">A(5) F#m</span>\n<span class=\"ly\">Cada uno da lo que recibe</span>\n<span class=\"cd\">A(5) F#m A(5)</span>\n<span class=\"ly\">y luego recibe lo que da,</span>\n<span class=\"cd\">A#dim B#m7 E7</span>\n<span class=\"ly\">nada es más simple</span>\n<span class=\"cd\">B#m7 E7</span>\n<span class=\"ly\">no hay otra norma:</span>\n<span class=\"ly\">Bm7/5</span>\n<span class=\"ly\">nada se pierde,</span>\n<span class=\"cd\">E A(5)</span>\n<span class=\"ly\">todo se transforma.</span>\n<span class=\"ly\">El vino que pagué yo,</span>\n<span class=\"ly\">con aquel euro italiano</span>\n<span class=\"ly\">que había estado en un vagón</span>\n<span class=\"ly\">antes de estar en mi mano,</span>\n<span class=\"ly\">y antes de eso en Torino,</span>\n<span class=\"ly\">y antes de Torino, en Prato,</span>\n<span class=\"ly\">donde hicieron mi zapato</span>\n<span class=\"ly\">sobre el que caería el vino.</span>\n<span class=\"ly\">Zapato que en unas horas</span>\n<span class=\"ly\">buscaré bajo tu cama</span>\n<span class=\"ly\">con las luces de la aurora,</span>\n<span class=\"ly\">junto a tus sandalias planas</span>\n<span class=\"ly\">que compraste aquella vez</span>\n<span class=\"ly\">en Salvador de Bahía,</span>\n<span class=\"ly\">donde a otro diste el amor</span>\n<span class=\"ly\">que hoy yo te devolvería(cid:0)</span>\n<span class=\"ly\">Cada uno da lo que recibe</span>\n<span class=\"ly\">y luego recibe lo que da,</span>\n<span class=\"ly\">nada es más simple,</span>\n<span class=\"ly\">no hay otra norma:</span>\n<span class=\"ly\">nada se pierde</span>\n<span class=\"ly\">todo se transforma.</span>", "note": null, "set_id": "set5", "set_label": "Recta final — Clímax"}, {"num": 26, "title": "Canela en rama", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/canela_en_rama-2.shtml", "content": "<span class=\"lbl\">ESTROFA</span>\n<span class=\"cd\">Dm7(9) G7 Dm7(9)</span>\n<span class=\"ly\">Yo que nunca supe llegar a mi hora</span>\n<span class=\"ly\">G7 Cmaj7/G (C ] C5 ] C)*</span>\n<span class=\"ly\">hoy me quedé esperándote.</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">Y aunque diga mi oculista</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">que tengo muy mal la vista</span>\n<span class=\"ly\">Cmaj7/G C#º Eº C»Do</span>\n<span class=\"ly\">hoy me quedé mirándote.</span>\n<span class=\"lbl\">PUENTE</span>\n<span class=\"ly\">Dm7 Dº G13 C7(9) ]</span>\n<span class=\"ly\">Y pese a que el insomnio me desvela cada noche</span>\n<span class=\"ly\">A7 ] D7 G7</span>\n<span class=\"ly\">hoy me quedé; soñándote...</span>\n<span class=\"lbl\">ESTROFA</span>\n<span class=\"cd\">Dm7(9) G7 Dm7(9)</span>\n<span class=\"ly\">Yo que hablo hasta debajo del agua</span>\n<span class=\"ly\">G7 Cmaj7/G (C ] C5 ] C)*</span>\n<span class=\"ly\">hoy me sorprendí escuchándote.</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">Y aunque de puro cobarde</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">siempre he sido pacifista,</span>\n<span class=\"cd\">Cmaj7/G C#º Eº</span>\n<span class=\"ly\">hoy te luché; y te gané.</span>\n<span class=\"lbl\">PUENTE</span>\n<span class=\"ly\">Dm7 Dº G13 C7(9) ]</span>\n<span class=\"ly\">Yo, que siempre he sido de poner tierra por medio</span>\n<span class=\"ly\">A7 ] F C/G ] Cmaj7/G</span>\n<span class=\"ly\">hoy te vi, y me quedé.</span>\n<span class=\"lbl\">ESTRIBILLO</span>\n<span class=\"cd\">C/G E7 Am7 Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">Aunque soy alérgico a la franela me quedé en tu cama.</span>\n<span class=\"cd\">G7 C/G E7 Am7</span>\n<span class=\"ly\">No combinan mis cortinas con tus entretelas</span>\n<span class=\"cd\">Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">y aún así hoy cocino en tu cocina, corazón;</span>\n<span class=\"ly\">G#m6 ] G7 ] C/G Gm7</span>\n<span class=\"ly\">canela en rama.</span>\n<span class=\"cd\">Csus2(6) Csus2(5#) Csus2 G7</span>\n<span class=\"ly\">Hoy cocino en tu cocina, corazón.</span>\n<span class=\"lbl\">ESTROFA</span>\n<span class=\"cd\">Dm7(9) G7 Dm7(9)</span>\n<span class=\"ly\">Yo que siempre fui animal nocturno</span>\n<span class=\"ly\">G7 Cmaj7/G (C ] C5 ] C)*</span>\n<span class=\"ly\">hoy me quedo a ver amanecer.</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">Y yo que siempre fui rockero</span>\n<span class=\"cd\">Dm7(9) G7</span>\n<span class=\"ly\">hoy te canto por boleros</span>\n<span class=\"cd\">Cmaj7/G C#º Eº</span>\n<span class=\"ly\">ay &quot;si tú me dices ven&quot;...</span>\n<span class=\"lbl\">PUENTE</span>\n<span class=\"cd\">Dm7 Dº G13</span>\n<span class=\"ly\">Yo que siempre he huido de las modas</span>\n<span class=\"ly\">C7(9) ] A7 ] Dm7</span>\n<span class=\"ly\">hoy visto Pret a Porter.</span>\n<span class=\"cd\">Dº G13</span>\n<span class=\"ly\">Son las cosas de la vida,</span>\n<span class=\"ly\">C7(9) ] A7 ] Dm7</span>\n<span class=\"ly\">son las cosas del querer.</span>\n<span class=\"cd\">Dº G13</span>\n<span class=\"ly\">Yo venía de visita,</span>\n<span class=\"ly\">C7(9) ] A7 ] Dm7 C/G ] Cmaj7/G</span>\n<span class=\"ly\">yo venía de visita y me quedé.</span>\n<span class=\"lbl\">ESTRIBILLO</span>\n<span class=\"cd\">C/G E7 Am7 Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">Aunque soy alérgico a la franela me quedé en tu cama.</span>\n<span class=\"cd\">G7 C/G E7 Am7</span>\n<span class=\"ly\">No combinan mis cortinas con tus entretelas</span>\n<span class=\"cd\">Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">y aún así hoy cocino en tu cocina, corazón;</span>\n<span class=\"cd\">G7</span>\n<span class=\"ly\">Son, son!</span>\n<span class=\"cd\">C/G E7 Am7 Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">Aunque soy alérgico a la franela me quedé en tu cama.</span>\n<span class=\"cd\">G7 C/G E7 Am7</span>\n<span class=\"ly\">No combinan mis cortinas con tus entretelas</span>\n<span class=\"cd\">Gm7 Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">y aún así hoy cocino en tu cocina, corazón;</span>\n<span class=\"ly\">G#m6 ] G7 ] C/G Gm7</span>\n<span class=\"ly\">canela en rama.</span>\n<span class=\"ly\">Csus2(6) Csus2(5#) Csus2 G#m6]G7 ] C/G</span>\n<span class=\"ly\">En tu cocina, corazón, canela en rama</span>\n<span class=\"cd\">Csus2(6) Csus2(5#) Csus2</span>\n<span class=\"ly\">En tu cocina, corazón.</span>\n<span class=\"lbl\">BIS FINAL</span>\n<span class=\"cd\">Dm7(9) G7 Dm7(9)</span>\n<span class=\"ly\">Yo que nunca supe llegar a mi hora</span>\n<span class=\"cd\">G7 Cmaj7/G</span>\n<span class=\"ly\">hoy me quedé esperándote.</span>\n<span class=\"lbl\">ACORDES:</span>\n<span class=\"ly\">Dm7(9) X5355X</span>\n<span class=\"ly\">G7 355433</span>\n<span class=\"ly\">CMaj7/G 332000</span>\n<span class=\"ly\">(C ] C5 ]C)* X32000 ] X35000 ] X32000</span>\n<span class=\"ly\">C#º X4535X</span>\n<span class=\"ly\">Eº X7868X</span>\n<span class=\"cd\">Dm7 X57565</span>\n<span class=\"ly\">Dº X5646X</span>\n<span class=\"ly\">G13 3X345X</span>\n<span class=\"ly\">C7(9) X3233X</span>\n<span class=\"ly\">F 133211</span>\n<span class=\"ly\">C/G 332010</span>\n<span class=\"ly\">E7 020100</span>\n<span class=\"cd\">Am7 X02010</span>\n<span class=\"ly\">Gm7 353333</span>\n<span class=\"cd\">Csus2(6) X30210</span>\n<span class=\"cd\">Csus2(5#) X30110</span>\n<span class=\"cd\">Csus2 X30010</span>\n<span class=\"ly\">G#m6 4X344X</span>", "note": null, "set_id": "set6", "set_label": "Bis"}, {"num": 27, "title": "Eres", "artist": "kanka", "url": "https://acordes.lacuerda.net/kanka/eres", "content": "<span class=\"lbl\">Intro Capo 3 traste</span>\n<span class=\"ly\">(D Bm7 G Gm )x2</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Eres el último bollo que queda en la caja</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Eres un guiso con el punto justo de sal</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Eres la brisa que a todos mis nervios relaja</span>\n<span class=\"cd\">Gm A7</span>\n<span class=\"ly\">Una película nueva de emocionante final</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Eres la mejor croqueta que me hizo mi abuela</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Eres la aguja encontrada en mitad de un pajar</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Eres la mítica frase de aquella novela</span>\n<span class=\"cd\">Gm A7</span>\n<span class=\"ly\">Tarde templada de olas, paella con socarrat</span>\n<span class=\"cd\">D Bm7</span>\n<span class=\"ly\">Y tú no te das ni cuenta</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Llegas como si nada</span>\n<span class=\"cd\">Gm A7</span>\n<span class=\"ly\">No sabes que lo llenas</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Todo con tu llegada</span>\n<span class=\"cd\">Bm7</span>\n<span class=\"ly\">tú no te das ni cuenta</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Llegas como si nada</span>\n<span class=\"cd\">Gm A7</span>\n<span class=\"ly\">No sabes que lo llenas</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Todo con tu llegada</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Eres la fiesta que luego no deja resaca</span>\n<span class=\"cd\">E</span>\n<span class=\"ly\">Eres la siesta sobre el traqueteo de un tren</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Eres un sábado de libro, vino y hamaca</span>\n<span class=\"cd\">Gm</span>\n<span class=\"ly\">Eres comer con las manos</span>\n<span class=\"cd\">A7</span>\n<span class=\"ly\">Eres un mil sobre cien</span>\n<span class=\"cd\">D</span>\n<span class=\"ly\">Eres la estrella dorada en el Super Mario</span>\n<span class=\"cd\">F#7</span>\n<span class=\"ly\">Y ese temazo que vuelve otra vez a sonar</span>\n<span class=\"cd\">G</span>\n<span class=\"ly\">Eres la buena noticia en el Telediario</span>\n<span class=\"cd\">Gm</span>\n<span class=\"ly\">Eres una obra de arte que no hace falta explicar - Coro -</span>", "note": null, "set_id": "set6", "set_label": "Bis"}]}
+</script>
+<script>
+(function(){
+  var data = JSON.parse(document.getElementById('song-data').textContent);
+  var sets = data.sets;
+  var songs = data.songs;
+
+  function artistLabel(a){
+    return a === 'drexler' ? 'Drexler' : a === 'kanka' ? 'El Kanka' : 'Dúo';
+  }
+  function slug(num){ return 'song-' + String(num).replace(/[^a-z0-9]/gi,''); }
+
+  var tocEl = document.getElementById('toc');
+  var sheetsEl = document.getElementById('sheets');
+
+  var bySet = {};
+  sets.forEach(function(s){ bySet[s.id] = []; });
+  songs.forEach(function(s){ bySet[s.set_id].push(s); });
+
+  sets.forEach(function(setInfo){
+    var list = bySet[setInfo.id];
+    if(!list.length) return;
+
+    var block = document.createElement('div');
+    block.className = 'set-block';
+    var head = document.createElement('div');
+    head.className = 'set-head';
+    head.innerHTML = '<h2>' + setInfo.label + '</h2><span class="count">' + list.length + ' cancion' + (list.length===1?'':'es') + '</span>';
+    block.appendChild(head);
+
+    list.forEach(function(song){
+      var row = document.createElement('a');
+      row.className = 'song-row';
+      row.href = '#' + slug(song.num);
+      var status = song.content ? (song.note === 'partial' ? 'partial' : 'full') : 'none';
+      row.innerHTML =
+        '<span class="n">' + song.num + '</span>' +
+        '<span class="t">' + song.title + '</span>' +
+        '<span class="artist-chip ' + song.artist + '">' + artistLabel(song.artist) + '</span>' +
+        '<span class="status-dot ' + status + '"></span>';
+      row.addEventListener('click', function(e){
+        e.preventDefault();
+        openSong(song.num);
+      });
+      block.appendChild(row);
+    });
+    tocEl.appendChild(block);
+  });
+
+  sets.forEach(function(setInfo){
+    var list = bySet[setInfo.id];
+    if(!list.length) return;
+    var h2 = document.createElement('h2');
+    h2.className = 'section-title';
+    h2.textContent = setInfo.label;
+    sheetsEl.appendChild(h2);
+
+    list.forEach(function(song){
+      var det = document.createElement('details');
+      det.className = 'song';
+      det.id = slug(song.num);
+      if(song.num === 1) det.open = true;
+
+      var summary = document.createElement('summary');
+      summary.innerHTML =
+        '<span class="n">' + song.num + '</span>' +
+        '<span class="title">' + song.title + '</span>' +
+        '<span class="artist-chip ' + song.artist + '">' + artistLabel(song.artist) + '</span>' +
+        '<span class="arrow">&#9656;</span>';
+      det.appendChild(summary);
+
+      var body = document.createElement('div');
+      body.className = 'song-body';
+
+      var meta = document.createElement('div');
+      meta.className = 'song-meta';
+      var sourceLink = document.createElement('a');
+      sourceLink.href = song.url;
+      sourceLink.target = '_blank';
+      sourceLink.rel = 'noopener';
+      sourceLink.textContent = 'Ver fuente / acordes completos →';
+      meta.appendChild(sourceLink);
+
+      var speedWrap = document.createElement('div');
+      speedWrap.className = 'speed-control-inline';
+      speedWrap.innerHTML =
+        '<span class="label">Deslizar</span>' +
+        '<div class="speed-adjust compact">' +
+          '<button type="button" class="speed-minus" aria-label="Más lento">&minus;</button>' +
+          '<span class="speed-label">Normal</span>' +
+          '<button type="button" class="speed-plus" aria-label="Más rápido">+</button>' +
+          '<button type="button" class="speed-play" aria-label="Desplazar hacia abajo">&#9654;</button>' +
+        '</div>';
+      meta.appendChild(speedWrap);
+
+      var fontWrap = document.createElement('div');
+      fontWrap.className = 'speed-control-inline';
+      fontWrap.innerHTML =
+        '<span class="label">Letra</span>' +
+        '<div class="font-adjust compact">' +
+          '<button type="button" class="font-minus" aria-label="Letra más chica">A&minus;</button>' +
+          '<span class="font-label">15px</span>' +
+          '<button type="button" class="font-plus" aria-label="Letra más grande">A+</button>' +
+        '</div>';
+      meta.appendChild(fontWrap);
+
+      body.appendChild(meta);
+
+      if(song.content){
+        var sheet = document.createElement('div');
+        sheet.className = 'sheet';
+        var pre = document.createElement('pre');
+        pre.innerHTML = song.content;
+        sheet.appendChild(pre);
+        body.appendChild(sheet);
+      } else {
+        var nodata = document.createElement('div');
+        nodata.className = 'no-data';
+        nodata.textContent = 'Sin acordes guardados todavía — usa el enlace de arriba.';
+        body.appendChild(nodata);
+      }
+
+      var idx = songs.indexOf(song);
+      var prevSong = idx > 0 ? songs[idx-1] : null;
+      var nextSong = idx < songs.length-1 ? songs[idx+1] : null;
+      var navRow = document.createElement('div');
+      navRow.className = 'song-nav';
+      if(prevSong){
+        var prevA = document.createElement('a');
+        prevA.href = '#' + slug(prevSong.num);
+        prevA.innerHTML = '<span class="dir">&larr; Anterior</span><span class="ttl">' + prevSong.title + '</span>';
+        prevA.addEventListener('click', function(e){ e.preventDefault(); openSong(prevSong.num); });
+        navRow.appendChild(prevA);
+      } else {
+        navRow.appendChild(document.createElement('span')).className = 'spacer';
+      }
+      if(nextSong){
+        var nextA = document.createElement('a');
+        nextA.className = 'next';
+        nextA.href = '#' + slug(nextSong.num);
+        nextA.innerHTML = '<span class="dir">Siguiente &rarr;</span><span class="ttl">' + nextSong.title + '</span>';
+        nextA.addEventListener('click', function(e){ e.preventDefault(); openSong(nextSong.num); });
+        navRow.appendChild(nextA);
+      } else {
+        navRow.appendChild(document.createElement('span')).className = 'spacer';
+      }
+      body.appendChild(navRow);
+
+      det.appendChild(body);
+      sheetsEl.appendChild(det);
+    });
+  });
+
+/* ---- velocidad de deslizamiento: +/- suman o restan una unidad ---- */
+  var SPEED_MIN = 0;
+  var SPEED_MAX = 400;
+  var SPEED_STEP = 1;
+  var speedPx = 0; // px/segundo, arranca detenido
+  var scrollMs = 700;
+
+  function renderSpeed(){
+    scrollMs = Math.max(200, Math.min(1800, Math.round(65000 / Math.max(1, speedPx))));
+    document.querySelectorAll('.speed-label').forEach(function(el){
+      el.textContent = speedPx + ' px/s';
+    });
+    document.querySelectorAll('.speed-minus').forEach(function(el){
+      el.disabled = (speedPx <= SPEED_MIN);
+    });
+    document.querySelectorAll('.speed-plus').forEach(function(el){
+      el.disabled = (speedPx >= SPEED_MAX);
+    });
+  }
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.speed-minus')){
+      speedPx = Math.max(SPEED_MIN, speedPx - SPEED_STEP);
+      renderSpeed();
+    } else if(e.target.closest('.speed-plus')){
+      speedPx = Math.min(SPEED_MAX, speedPx + SPEED_STEP);
+      renderSpeed();
+    }
+  });
+  renderSpeed();
+
+  /* ---- tamaño de letra de las fichas, sincronizado en toda la página ---- */
+  var FONT_MIN = 11;
+  var FONT_MAX = 32;
+  var FONT_STEP = 1;
+  var fontSize = 15;
+
+  function renderFont(){
+    document.documentElement.style.setProperty('--sheet-font-size', fontSize + 'px');
+    document.querySelectorAll('.font-label').forEach(function(el){
+      el.textContent = fontSize + 'px';
+    });
+    document.querySelectorAll('.font-minus').forEach(function(el){
+      el.disabled = (fontSize <= FONT_MIN);
+    });
+    document.querySelectorAll('.font-plus').forEach(function(el){
+      el.disabled = (fontSize >= FONT_MAX);
+    });
+  }
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.font-minus')){
+      fontSize = Math.max(FONT_MIN, fontSize - FONT_STEP);
+      renderFont();
+    } else if(e.target.closest('.font-plus')){
+      fontSize = Math.min(FONT_MAX, fontSize + FONT_STEP);
+      renderFont();
+    }
+  });
+  renderFont();
+
+  /* ---- deslizamiento continuo hacia abajo (modo teleprompter) ---- */
+  var autoScrolling = false;
+  var autoScrollRaf = null;
+  var lastTs = null;
+
+  function setPlayingUI(playing){
+    document.querySelectorAll('.speed-play').forEach(function(btn){
+      btn.classList.toggle('playing', playing);
+      btn.innerHTML = playing ? '&#10074;&#10074;' : '&#9654;';
+      btn.setAttribute('aria-label', playing ? 'Pausar deslizamiento' : 'Desplazar hacia abajo');
+    });
+  }
+
+  function autoScrollStep(ts){
+    if(!autoScrolling) return;
+    if(lastTs === null) lastTs = ts;
+    var dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+    var pxPerSec = speedPx;
+    var maxY = document.documentElement.scrollHeight - window.innerHeight;
+    var nextY = window.scrollY + pxPerSec * dt;
+    if(nextY >= maxY){
+      window.scrollTo(0, maxY);
+      stopAutoScroll();
+      return;
+    }
+    window.scrollTo(0, nextY);
+    autoScrollRaf = requestAnimationFrame(autoScrollStep);
+  }
+
+  function startAutoScroll(){
+    autoScrolling = true;
+    lastTs = null;
+    setPlayingUI(true);
+    autoScrollRaf = requestAnimationFrame(autoScrollStep);
+  }
+  function stopAutoScroll(){
+    autoScrolling = false;
+    if(autoScrollRaf) cancelAnimationFrame(autoScrollRaf);
+    autoScrollRaf = null;
+    setPlayingUI(false);
+  }
+  function toggleAutoScroll(){
+    if(autoScrolling) stopAutoScroll(); else startAutoScroll();
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.speed-play')){
+      toggleAutoScroll();
+    }
+  });
+  // cualquier scroll manual del usuario (rueda, touch, teclas) detiene el auto-scroll
+  ['wheel','touchstart','keydown'].forEach(function(evt){
+    window.addEventListener(evt, function(){ if(autoScrolling) stopAutoScroll(); }, {passive:true});
+  });
+
+  function easeInOutQuad(t){
+    return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  }
+
+  function smoothScrollToY(targetY, duration){
+    var startY = window.scrollY;
+    var diff = targetY - startY;
+    if(Math.abs(diff) < 1) return;
+    var startTime = null;
+    function step(ts){
+      if(startTime === null) startTime = ts;
+      var elapsed = ts - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + diff * easeInOutQuad(progress));
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function openSong(num){
+    stopAutoScroll();
+    var id = slug(num);
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.open = true;
+    requestAnimationFrame(function(){
+      var rect = el.getBoundingClientRect();
+      var targetY = rect.top + window.scrollY - 16;
+      smoothScrollToY(targetY, scrollMs);
+    });
+    if(history.pushState){ history.pushState(null, '', '#' + id); }
+  }
+
+  window.addEventListener('hashchange', function(){
+    var id = location.hash.replace('#','');
+    var el = document.getElementById(id);
+    if(el){ el.open = true; }
+  });
+  if(location.hash){
+    var el = document.getElementById(location.hash.replace('#',''));
+    if(el) el.open = true;
+  }
+
+  /* ---- back to top ---- */
+  var backtop = document.getElementById('backtop');
+  if(backtop){
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 480){ backtop.classList.add('show'); }
+      else { backtop.classList.remove('show'); }
+    });
+    backtop.addEventListener('click', function(){
+      stopAutoScroll();
+      smoothScrollToY(0, scrollMs);
+    });
+  }
+})();
+</script>
